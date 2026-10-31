@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opis EA-MY — Pusat Perintah Agent Pentadbiran Pusaka</title>
+<style>
+:root{
+  --bg:#0a0e17; --panel:#101725; --panel2:#0d1320; --border:#1e2a3d;
+  --ink:#dbe4f0; --dim:#8296b3; --faint:#5b6c85;
+  --amber:#f6b23c; --teal:#34d399; --red:#f87171; --blue:#5b8cff;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Segoe UI",-apple-system,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45}
+.wrap{width:1160px;max-width:100%;padding:14px 0 22px}
+/* ── header ── */
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:0 4px 10px}
+.brand{font-size:20px;font-weight:700;letter-spacing:.4px}
+.brand .sub{font-size:12px;color:var(--dim);font-weight:400;margin-left:8px}
+.badge{font-size:10.5px;color:var(--amber);border:1px solid rgba(246,178,60,.45);border-radius:999px;padding:2px 9px;letter-spacing:.5px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 4px 12px}
+.chip{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:5px 11px;font-size:12.5px;color:var(--dim);display:flex;gap:6px;align-items:baseline}
+.chip b{color:var(--ink);font-family:var(--mono);font-size:14px}
+.chip.acc b{color:var(--amber)} .chip.ok b{color:var(--teal)}
+/* ── layout ── */
+.main{display:grid;grid-template-columns:760px 380px;gap:12px;align-items:start}
+@media(max-width:1160px){.main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px}
+.card h3{margin:0;padding:9px 13px;font-size:12px;letter-spacing:1.1px;color:var(--dim);text-transform:uppercase;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.stagebox{position:relative}
+canvas{display:block;border-radius:12px}
+.speedctl{display:flex;gap:6px;align-items:center}
+.speedctl button{background:var(--panel2);color:var(--dim);border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:var(--mono);padding:3px 8px;cursor:pointer}
+.speedctl button.on{color:var(--amber);border-color:var(--amber)}
+.legend{display:flex;flex-wrap:wrap;gap:5px 12px;padding:9px 13px;font-size:11px;color:var(--dim);border-top:1px solid var(--border)}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+/* ── agents & feed ── */
+.agents{padding:6px 8px}
+.agrow{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;padding:5px 6px;border-radius:8px}
+.agrow:hover{background:var(--panel2)}
+.agrow .em{font-size:17px;text-align:center}
+.agrow .nm{font-size:12.5px;font-weight:600}
+.agrow .rl{font-size:10.5px;color:var(--faint);display:block;font-weight:400}
+.agrow .st{font-size:10.5px;font-family:var(--mono);color:var(--dim);text-align:right;max-width:118px}
+.feed{height:268px;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.fe{font-size:11.5px;padding:4px 8px;border-radius:7px;background:var(--panel2);border-left:2px solid var(--c,#3b4a63);color:var(--dim)}
+.fe b{color:var(--ink)}
+.fe .tm{font-family:var(--mono);color:var(--faint);margin-right:5px}
+/* ── pipeline ── */
+.pipe{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;padding:11px 13px}
+.pcol{background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:7px 9px;min-width:0}
+.pcol .pn{font-size:10px;color:var(--faint);letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcol .pv{font-size:19px;font-family:var(--mono);font-weight:700;color:var(--ink)}
+.pcol.hot{border-color:rgba(246,178,60,.55)} .pcol.hot .pv{color:var(--amber)}
+.pcol.done .pv{color:var(--teal)}
+/* ── human gate ── */
+.gate{display:none;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--border);background:rgba(246,178,60,.06)}
+.gate.show{display:flex}
+.gate .gtxt{font-size:12.5px;color:var(--amber);flex:1}
+.gate button{background:var(--amber);color:#161207;border:0;border-radius:8px;font-weight:700;font-size:12.5px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+/* ── ticker ── */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--panel2);margin-top:12px}
+.ticker .tk{display:inline-block;white-space:nowrap;padding:7px 0;font-size:12px;color:var(--dim);animation:tick 64s linear infinite}
+.ticker .tk b{color:var(--ink)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ── bottom panels ── */
+.bottom{display:grid;grid-template-columns:560px 1fr;gap:12px;margin-top:12px}
+@media(max-width:1160px){.bottom{grid-template-columns:1fr}}
+.arahan{padding:10px 13px;display:flex;flex-direction:column;gap:8px}
+.arahan button{background:var(--panel2);border:1px solid var(--border);color:var(--ink);border-radius:9px;padding:9px 12px;font-size:12.5px;text-align:left;cursor:pointer;transition:border-color .15s}
+.arahan button:hover{border-color:var(--amber)}
+.arahan .hint{font-size:10.5px;color:var(--faint)}
+.fasa{padding:4px 13px 10px}
+.fasa table{width:100%;border-collapse:collapse;font-size:11.5px}
+.fasa td{padding:4.5px 6px;border-bottom:1px solid #16202f;color:var(--dim)}
+.fasa td:last-child{text-align:right;color:var(--ink);font-family:var(--mono);white-space:nowrap}
+.fasa .fnote{font-size:10.5px;color:var(--faint);margin-top:8px}
+.foot{font-size:10.5px;color:var(--faint);padding:12px 4px 0;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">🏛️ OPIS EA-MY <span class="sub">Pusat Perintah Agent Pentadbiran Pusaka</span></div>
+    <span class="badge">KONSEP FASA 3 — SIMULASI BERASASKAN REPO SEBENAR</span>
+  </header>
+
+  <div class="chips">
+    <div class="chip">⏱ <span id="clock" style="font-family:var(--mono)">--:--:--</span> UTC</div>
+    <div class="chip acc">📂 Kes aktif <b id="stAct">0</b></div>
+    <div class="chip ok">✅ Selesai <b id="stDone">0</b></div>
+    <div class="chip">🛡️ Norma disemak <b id="stNorm">0</b></div>
+    <div class="chip">📚 Sitasi repo <b>688</b></div>
+    <div class="chip">🗂️ Fail ilmu <b>19</b></div>
+    <div class="chip">🔁 Rebuild stream 3 <b style="color:var(--amber)">berjalan</b></div>
+  </div>
+
+  <div class="main">
+    <div class="card stagebox">
+      <h3>📺 Lantai Opis — Agent Bekerja
+        <span class="speedctl">
+          <button id="sp0">⏸</button><button id="sp1" class="on">1×</button><button id="sp2">2×</button><button id="sp4">4×</button>
+        </span>
+      </h3>
+      <canvas id="scene" width="760" height="400"></canvas>
+      <div class="gate" id="gate">
+        <div class="gtxt" id="gateTxt">—</div>
+        <button id="signBtn">✍️ Tandatangan &amp; Serah</button>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card">
+        <h3>👥 Agent Pakar (A1–A8)</h3>
+        <div class="agents" id="agents"></div>
+      </div>
+      <div class="card">
+        <h3>📡 Log Aktiviti Live</h3>
+        <div class="feed" id="feed"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h3>🔁 Saluran Kerja Kes (live)</h3>
+    <div class="pipe" id="pipe"></div>
+  </div>
+
+  <div class="ticker"><div class="tk" id="tk"></div></div>
+
+  <div class="bottom">
+    <div class="card">
+      <h3>📣 Arahan kepada Opis</h3>
+      <div class="arahan">
+        <button data-hermes-send="Zizi: bagi status report penuh opis EA — semua agent, kes aktif, norma, dan progress stream 3 rebuild serta repo sekarang.">📊 Minta status report penuh opis + repo + rebuild stream 3</button>
+        <button data-hermes-send="Zizi: tunjuk contoh audit trail pengiraan faraid (contoh balu + anak-anak) berdasarkan kaedah dalam 01-legal-framework/syariah-law.md, dengan sitasi.">🧮 Minta contoh audit trail pengiraan faraid (dari repo ilmu)</button>
+        <button data-hermes-send="Zizi: senaraikan item PERLU SAHKAN paling kritikal dalam repo dan cadangkan misi pengisian jurang untuk Fasa 2.">⚠️ Senaraikan PERLU SAHKAN kritikal + cadang misi Fasa 2</button>
+        <button data-hermes-send="Zizi: mula rancang modul webapp seterusnya dalam 09-webapp-blueprint — wizard klasifikasi kes (Fasa 3.5).">🚀 Rancang modul seterusnya: wizard klasifikasi kes</button>
+        <div class="hint">Butang menghantar arahan kepada Zizi (agent penyelia). Zizi akan jawab dan kemas kini paparan ini.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>📌 Status Sebenar Fasa 1 (repo ilmu)</h3>
+      <div class="fasa">
+        <table>
+          <tr><td>1. Undang-undang civil</td><td>✅ 50KB · 34 sumber</td></tr>
+          <tr><td>2. Syariah + bidang kuasa</td><td>✅ 2 fail · 58 sitasi</td></tr>
+          <tr><td>3. Institusi + peta proses</td><td style="color:var(--amber)">🔁 rebuild berjalan</td></tr>
+          <tr><td>4. Produk EA</td><td>✅ 3 fail · 194 sitasi</td></tr>
+          <tr><td>5. Statistik + demografi</td><td>✅ 2 fail</td></tr>
+          <tr><td>6. Kes rujukan + Templat A–F</td><td>✅ 3 fail · 85 sitasi</td></tr>
+          <tr><td>7. Bottleneck + penambahbaikan</td><td>✅ 3 fail</td></tr>
+        </table>
+        <div class="fnote">Repo: /opt/data/profiles/estateadministration-project/estate-admin-malaysia — 19 fail ilmu · 688 sitasi · git versioned. Fasa 2 (sintesis jurnal v2.0) menunggu rebuild stream 3.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Simulasi ini ialah <b>konsep Fasa 3</b> daripada <i>journal-research-report.md</i> §6: agent expert advisory (A1–A4), pentadbir pelaksana (A6–A7), enjin kiraan deterministik (A5) dan pematuhan deontik (A8). Aktiviti kes di lantai opis adalah simulasi; angka repo (sitasi, fail, status stream) adalah sebenar (Fasa 1, 2026-10-31). Keputusan muktamad kekal pada mahkamah/agensi berautoriti — semua serahan human-in-the-loop.</div>
+</div>
+
+<script>
+"use strict";
+window.__errs=[];
+window.addEventListener("error",function(e){window.__errs.push(String(e.message)+" @"+(e.lineno||"?"))});
+/* ══════ konfig ══════ */
+const AGENTS = {
+  A1:{tile:[4,3],emoji:"🧑‍⚖️",name:"A1 Penasihat Legal",role:"Civil: probat · geran SKM",color:"#5b8cff"},
+  A2:{tile:[4,1],emoji:"🧕",name:"A2 Penasihat Syariah",role:"Faraid · wasiat · hibah",color:"#39d98a"},
+  A3:{tile:[2,2],emoji:"📊",name:"A3 EA / Fiduciary",role:"Triase & nasihat pentadbiran",color:"#2dd4bf"},
+  A4:{tile:[6,1],emoji:"🕵️",name:"A4 Analis Kes",role:"Preseden & case reasoning",color:"#a78bfa"},
+  A5:{tile:[6,3],emoji:"🧮",name:"A5 Enjin Kiraan",role:"Faraid/hibah/wasiat/intestate",color:"#f59e0b"},
+  A6:{tile:[2,4],emoji:"📋",name:"A6 Orkestrator",role:"Pelaksana arahan & status",color:"#ef4444"},
+  A7:{tile:[4,5],emoji:"📝",name:"A7 Dokumen",role:"Borang & draf untuk semakan",color:"#eab308"},
+  A8:{tile:[6,5],emoji:"🛡️",name:"A8 Pematuhan Deontik",role:"Semak WAJIB / DILARANG",color:"#ec4899"},
+};
+const DOOR=[0,2], HUMAN=[1,5], EXIT=[0,6];
+const NAMES_M=["Ahmad bin Ismail","Siti Aminah bte Rahman","Rosnah bte Omar","Muhammad Faizal bin Hamid","Halimah bte Yusof","Ismail bin Din","Zainab bte Ismail"];
+const NAMES_N=["Lim Wei Chong","Rajesh a/l Krishnan","David Wong","Muthu a/l Samy","Grace Tan","Kumar a/l Selvam"];
+const ASSETS=["Rumah teres Shah Alam","Tanah geran — Pahang","Akaun bank RM85,400","Simpanan KWSP RM230,000","Takaful RM150,000","Syer Bursa RM60,000","Kenderaan — JPJ","Kedai runcit — Melaka"];
+const FAR=[ // (heirs, kiraan) — kaedah faraid dari repo 01-legal-framework/syariah-law.md
+ ["balu + 2 anak (1 lelaki, 1 perempuan)","balu 1/8 • anak lelaki 14/32 • anak perempuan 7/32"],
+ ["balu + 4 anak perempuan","balu 1/8 • 4 anak masing-masing 7/32"],
+ ["balu + ibu + bapa + 3 anak","balu 1/8 • ibu 1/6 • bapa 1/6 (asabah) • baki 13/24 kepada 3 anak"],
+ ["suami + 2 anak perempuan","suami 1/4 • 2 anak masing-masing 3/8"],
+ ["balu + bapa + 2 anak lelaki","balu 1/8 • bapa 1/6 • 2 anak lelaki masing-masing 13/48"],
+];
+const DIST=[ // Distribution Act 1958 (intestate bukan Islam)
+ ["pasangan + anak-anak","pasangan 1/2 • baki anak-anak sama rata"],
+ ["anak-anak sahaja","sama rata antara anak"],
+];
+const NORMS=["N-PA-01 (geran sebelum pengeluaran harta)","N-EX-01 (hutang dilangsaikan dahulu)","N-PK-01 (sijil faraid sebelum bahagi pusaka kecil)","N-W-01 (wasiat ≤ 1/3 harta bersih)","N-WC-01 (wasiat 2 saksi)"];
+
+/* ══════ state ══════ */
+let cases=[], nextId=1041, doneCount=0, normCount=0, speed=1, paused=false, spawnT=2.5, askT=18;
+const feedEl=document.getElementById("feed"), agentsEl=document.getElementById("agents"), pipeEl=document.getElementById("pipe");
+const gateEl=document.getElementById("gate"), gateTxt=document.getElementById("gateTxt"), signBtn=document.getElementById("signBtn");
+const stats={get active(){return cases.filter(c=>!c.done).length},get done(){return doneCount},get norm(){return normCount}};
+
+/* ══════ util ══════ */
+const pad=n=>String(n).padStart(2,"0");
+function now(){const d=new Date();return pad(d.getUTCHours())+":"+pad(d.getUTCMinutes())+":"+pad(d.getUTCSeconds())}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function rnd(a,b){return a+Math.random()*(b-a)}
+function log(agentKey,text){
+  const c=agentKey&&AGENTS[agentKey]?AGENTS[agentKey].color:"#3b4a63";
+  const tag=agentKey||"OPIS";
+  const div=document.createElement("div");div.className="fe";div.style.setProperty("--c",c);
+  div.innerHTML='<span class="tm">'+now()+'</span><b style="color:'+c+'">'+tag+'</b> · '+text;
+  feedEl.prepend(div);while(feedEl.children.length>44)feedEl.lastChild.remove();
+}
+/* ══════ kes ══════ */
+function spawnCase(){
+  const muslim=Math.random()<0.635; // Banci 2020: Islam 63.5%
+  const c={
+    id:"EA-"+(nextId++),muslim,
+    name:muslim?pick(NAMES_M):pick(NAMES_N),
+    asset:pick(ASSETS),
+    value:Math.floor(rnd(80,4200))*1000,
+    far:muslim?pick(FAR):pick(DIST),
+    route:muslim?["A3","A2","A4","A5","A8","A7","A6"]:["A3","A1","A4","A5","A8","A7","A6"],
+    node:0, x:DOOR[0], y:DOOR[1], state:"move", t:0,
+    workDur:0, tx:0, ty:0, done:false, waiting:false,
+  };
+  cases.push(c);
+  log("A3","📥 Kes <b>"+c.id+"</b> diterima — "+c.name+" · "+(muslim?"Islam (faraid)":"bukan Islam (Akta 300)")+" · "+c.asset+" · RM"+(c.value/1000)+"k");
+}
+
+/* ══════ kanvas iso ══════ */
+const cv=document.getElementById("scene"), ctx=cv.getContext("2d");
+const DPR=Math.min(2,window.devicePixelRatio||1);
+cv.width=760*DPR;cv.height=400*DPR;cv.style.width="760px";cv.style.height="400px";ctx.setTransform(DPR,0,0,DPR,0,0);
+const TW=64,TH=32,CX=380,CY=52;
+const iso=(x,y)=>[CX+(x-y)*TW/2, CY+(x+y)*TH/2];
+function tileDiamond(x,y,inset=0){
+  const a=iso(x+inset,y+inset),b=iso(x+1-inset,y+inset),c2=iso(x+1-inset,y+1-inset),d=iso(x+inset,y+1-inset);
+  return [a,b,c2,d];
+}
+function poly(pts,fill,stroke){ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+
+function drawDesk(t,color,glowP){
+  const pts=tileDiamond(t[0],t[1],0.12);
+  // sisi
+  const h=12;
+  poly([[pts[3][0],pts[3][1]],[pts[2][0],pts[2][1]],[pts[2][0],pts[2][1]+h],[pts[3][0],pts[3][1]+h]],shade(color,-45));
+  poly([[pts[2][0],pts[2][1]],[pts[1][0],pts[1][1]],[pts[1][0],pts[1][1]+h],[pts[2][0],pts[2][1]+h]],shade(color,-25));
+  // top
+  if(glowP>0){ctx.save();ctx.globalAlpha=.28+.18*Math.sin(performance.now()/240);ctx.fillStyle=color;ctx.beginPath();ctx.arc((pts[0][0]+pts[2][0])/2,(pts[0][1]+pts[2][1])/2,30,0,7);ctx.fill();ctx.restore()}
+  poly(pts,color,"rgba(255,255,255,.14)");
+}
+function shade(hex,amt){const n=parseInt(hex.slice(1),16);let r=(n>>16)+amt,g=((n>>8)&255)+amt,b=(n&255)+amt;r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));return "rgb("+r+","+g+","+b+")"}
+
+function drawAgent(k,a,time){
+  const [px,py]=iso(a.tile[0]+0.5,a.tile[1]+0.5);
+  const bob=Math.sin(time*2.1+(k.charCodeAt(1)))*1.6;
+  const by=py-26+bob;
+  // bayang
+  ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();ctx.ellipse(px,py+8,10,4,0,0,7);ctx.fill();
+  // badan
+  ctx.fillStyle=a.color;rr(px-7,by-14,14,17,6);ctx.fill();
+  // kepala emoji
+  ctx.font="15px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(a.emoji,px,by-24);
+  // kod
+  ctx.font="bold 9px "+getComputedStyle(document.body).getPropertyValue("--mono");
+  ctx.fillStyle="rgba(219,228,240,.75)";ctx.fillText(k,px,by+9);
+  ctx.textBaseline="alphabetic";
+}
+function drawCase(c,time){
+  const [px,py]=iso(c.x+0.5,c.y+0.5);
+  const bob=Math.sin(time*3+c.id.length)*1.5;
+  const y=py-10+bob;
+  ctx.fillStyle="rgba(0,0,0,.3)";ctx.beginPath();ctx.ellipse(px,py+6,7,3,0,0,7);ctx.fill();
+  ctx.fillStyle="#f4f6fa";rr(px-5,y-7,10,13,2);ctx.fill();
+  ctx.fillStyle=c.muslim?"#39d98a":"#f6b23c";rr(px-5,y-7,10,3,1);ctx.fill();
+  ctx.strokeStyle="rgba(0,0,0,.25)";rr(px-5,y-7,10,13,2);ctx.stroke();
+}
+function drawStatic(t,emoji,label,tint){
+  const pts=tileDiamond(t[0],t[1],0.15);
+  const h=10;
+  poly([[pts[3][0],pts[3][1]],[pts[2][0],pts[2][1]],[pts[2][0],pts[2][1]+h],[pts[3][0],pts[3][1]+h]],"#141c2b");
+  poly([[pts[2][0],pts[2][1]],[pts[1][0],pts[1][1]],[pts[1][0],pts[1][1]+h],[pts[2][0],pts[2][1]+h]],"#182133");
+  poly(pts,tint||"#233047","rgba(255,255,255,.1)");
+  const [px,py]=iso(t[0]+0.5,t[1]+0.5);
+  ctx.font="16px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle="#dbe4f0";
+  ctx.fillText(emoji,px,py-14);
+  ctx.font="bold 9px sans-serif";ctx.fillStyle="rgba(130,150,179,.9)";ctx.fillText(label,px,py+18);
+  ctx.textBaseline="alphabetic";
+}
+function bubble(px,py,text,color){
+  ctx.font="11px "+getComputedStyle(document.body).getPropertyValue("--sans");
+  const w=ctx.measureText(text).width+16;
+  const x=px-w/2, y=py-52, h=20;
+  ctx.fillStyle="#1a2233";ctx.strokeStyle=color;ctx.lineWidth=1;
+  rr(x,y,w,h,7);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.moveTo(px-4,y+h);ctx.lineTo(px+4,y+h);ctx.lineTo(px,y+h+5);ctx.closePath();ctx.fillStyle="#1a2233";ctx.fill();
+  ctx.fillStyle="#dbe4f0";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,px,y+h/2);ctx.textBaseline="alphabetic";
+}
+
+/* ══════ render ══════ */
+let bubbles={}; // agentKey -> {text, until}
+function render(time){
+  ctx.clearRect(0,0,760,400);
+  // lantai
+  for(let x=0;x<8;x++)for(let y=0;y<7;y++)poly(tileDiamond(x,y),(x+y)%2?"#111827":"#0d1420");
+  // jalan pintu→keluar
+  poly(tileDiamond(0,2),"#2a2313");poly(tileDiamond(1,5),"#2a2313");poly(tileDiamond(0,6),"#2a2313");
+  drawStatic(DOOR,"🚪","INTAKE","#43307a");
+  drawStatic(HUMAN,"🤝","SERAHAN — HUMAN-IN-LOOP","#8a5a12");
+  drawStatic(EXIT,"🏁","SELESAI","#1d4a38");
+  // hiasan kecil
+  drawStatic([0,0],"🌿","",  "#12291d");drawStatic([7,6],"🌿","","#12291d");drawStatic([7,0],"💽","E-REPO","#233047");
+  // glow keadaan
+  const activeBy={};
+  for(const c of cases){ if(c.state==="work"&&c.node<c.route.length){const k=c.route[c.node];activeBy[k]=c;} }
+  for(const k in AGENTS)drawDesk(AGENTS[k].tile,shade(AGENTS[k].color,-28),activeBy[k]?1:0);
+  // depth-sort entiti
+  const ents=[];
+  for(const k in AGENTS)ents.push({d:AGENTS[k].tile[0]+AGENTS[k].tile[1],f:()=>drawAgent(k,AGENTS[k],time)});
+  for(const c of cases)ents.push({d:c.x+c.y,f:()=>drawCase(c,time)});
+  ents.sort((a,b)=>a.d-b.d).forEach(e=>e.f());
+  // progress ring + bubble untuk kes yg sedang kerja
+  for(const k in activeBy){
+    const c=activeBy[k],a=AGENTS[k];const[px,py]=iso(a.tile[0]+0.5,a.tile[1]+0.5);
+    const p=c.t/c.workDur;
+    ctx.beginPath();ctx.arc(px,py-44,8,-Math.PI/2,-Math.PI/2+p*Math.PI*2);
+    ctx.strokeStyle=a.color;ctx.lineWidth=2.4;ctx.stroke();
+    if(bubbles[k]&&time<bubbles[k].until)bubble(px,py,bubbles[k].text,a.color);else delete bubbles[k];
+  }
+}
+function say(k,text){bubbles[k]={text,until:simTime+2.6}}
+
+/* ══════ kemas kini ══════ */
+let simTime=0,last=performance.now();
+function target(c){ // pos nod seterusnya
+  if(c.node===0)return DOOR;
+  if(c.node<=c.route.length){const k=c.route[c.node-1];return AGENTS[k].tile}
+  if(c.node===c.route.length+1)return HUMAN;
+  return EXIT;
+}
+function stageLabel(c){
+  if(c.node===0)return"Intake";
+  if(c.node<=c.route.length)return c.route[c.node-1];
+  if(c.node===c.route.length+1)return"Serahan";
+  return"Selesai";
+}
+function advance(c){
+  c.node++;c.state="move";
+  const t=target(c);
+  const d=Math.hypot(t[0]-c.x,t[1]-c.y);
+  c.tx=t[0];c.ty=t[1];
+  c.moveDur=Math.max(.4,d*0.28);c.t=0;
+}
+function update(dt){
+  simTime+=dt;
+  // spawn
+  spawnT-=dt;if(spawnT<=0&&stats.active<7){spawnCase();spawnT=rnd(5,9)}
+  // permintaan arahan berkala
+  askT-=dt;
+  if(askT<=0){askT=rnd(24,38);
+    const sc=pick([
+      {k:"A4",t:"Kes hibah dicabar — nak siasat preseden dahulu atau eskalasi ke peguam manusia?",la:"Siasat preseden dulu",lb:"Eskalasi ke peguam manusia",a:"A4 mengimbas preseden <i>Latifah</i> — laporan preseden dikeluarkan ✓",b:"Kes ditanda ⚖️ eskalasi ke peguam manusia (human-in-the-loop) ✓"},
+      {k:"A2",t:"Wasiat melebihi 1/3 harta bersih tanpa persetujuan waris — N-W-01. Tolak atau minta persetujuan waris?",la:"Potong kepada 1/3 (N-W-01)",lb:"Minta dokumen persetujuan waris",a:"N-W-01 DILARANG — wasiat dipotong kepada 1/3 ✓",b:"Waris dihubungi untuk persetujuan — dokumen persetujuan disediakan ✓"},
+      {k:"A5",t:"Bahagian melebihi unity — 'aul dikesan. Sesuaikan (proportional) sekarang?",la:"Sesuaikan 'aul sekarang",lb:"Rujuk pakar syariah",a:"Penyesuaian 'aul dijalankan — jumlah tepat 1.0 ✓",b:"Kes ditanda untuk semakan pakar syariah (human-in-the-loop) ✓"},
+    ]);
+    askPanel(sc);
+  }
+  for(const c of cases){
+    if(c.done)continue;
+    if(c.state==="move"){
+      const d=Math.hypot(c.tx-c.x,c.ty-c.y);
+      if(d<0.02){c.x=c.tx;c.y=c.ty;c.state="work";c.t=0;
+        // sampai nod: tentukan tempoh + log
+        if(c.node===0){c.workDur=0.8;advance(c);continue}
+        const k=c.route[c.node-1];
+        c.workDur=rnd(2.2,4.6);
+        onArrive(k,c);
+      } else {
+        const sp=dt/d; c.x+=(c.tx-c.x)*Math.min(1,sp); c.y+=(c.ty-c.y)*Math.min(1,sp);
+      }
+    } else if(c.state==="work"){
+      c.t+=dt;
+      if(c.t>=c.workDur){
+        if(c.node===c.route.length+1){ // di kaunter manusia
+          if(c.signed){advance(c);continue}
+          if(!c.waiting){c.waiting=true;log("OPIS","✋ <b>"+c.id+"</b> tiba di kaunter serahan — menunggu tandatangan manusia (human-in-the-loop)");updateGate()}
+          continue;
+        }
+        if(c.node===c.route.length+2){c.done=true;doneCount++;log("OPIS","🏁 <b>"+c.id+"</b> selesai — harta diagih & rekod diarkibkan");continue}
+        advance(c);
+      }
+    }
+  }
+  cases=cases.filter(c=>!c.done||simTime-(c.doneAt||simTime)<0);
+  if(cases.length>26)cases=cases.filter(c=>!c.done);
+}
+function onArrive(k,c){
+  if(k==="A3"){say("A3","triase ✓");log("A3","Triase <b>"+c.id+"</b>: "+(c.muslim?"Muslim — laluan sijil faraid + pusaka kecil":"Bukan Islam — laluan geran/MyLAND")+" · nilai RM"+(c.value>=5000000?">5j → Mahkamah Tinggi":"≤5j → PPKP"))}
+  if(k==="A1"){say("A1","Act 97/300 ✓");log("A1","Nasihat civil <b>"+c.id+"</b>: "+(c.value>=5000000?"geran probat/SKM Mahkamah Tinggi (Act 97) — yuran peguam RM2k–5k":"pusaka kecil PPKP — fi RM30–50 + 0.2–0.3%"))}
+  if(k==="A2"){say("A2","sijil faraid ↗");log("A2","Permohonan sijil faraid <b>"+c.id+"</b> — waris: "+c.far[0]+" (s.50 Akta 505)")}
+  if(k==="A4"){say("A4","imbas preseden…");log("A4","Analisis preseden <b>"+c.id+"</b>: kes serupa diimbas dari repo kes (Templat A–F) — risiko: "+pick(["pertikaian hibah","waris hilang","penama KWSP","harta sepencarian"]))}
+  if(k==="A5"){say("A5",c.muslim?"faraid ✓":"Act 300 ✓");log("A5","Pengiraan <b>"+c.id+"</b> ("+(c.muslim?"faraid":"Distribution Act 1958")+"): "+c.far[1]+" — enjin deterministik, boleh diaudit")}
+  if(k==="A8"){const n1=pick(NORMS),n2=pick(NORMS);normCount+=2;say("A8","norma ✓");log("A8","Semakan deontik <b>"+c.id+"</b>: "+n1+" ✓ · "+n2+" ✓ — tiada pelanggaran")}
+  if(k==="A7"){say("A7","draf borang…");log("A7","Dokumen <b>"+c.id+"</b> disediakan untuk semakan manusia: "+pick(["Borang A + senarai aset","petisyen SKM + Statutori Declaration","borang tuntutan WTD + surat takaful"]))}
+  if(k==="A6"){say("A6","jadual serahan");log("A6","Orkestrasi <b>"+c.id+"</b>: arahan mahkamah/agensi dipecahkan kepada tugas — status dikemas kini, serahan dijadualkan")}
+}
+/* gate manusia */
+let gateQueue=[];
+function updateGate(){
+  gateQueue=cases.filter(c=>c.waiting&&!c.signed);
+  if(gateQueue.length){
+    const c=gateQueue[0];
+    gateTxt.innerHTML="✍️ <b>"+c.id+"</b> ("+c.name+") menunggu tandatangan waris/pentadbir di kaunter serahan"+(gateQueue.length>1?" — "+(gateQueue.length-1)+" lagi dalam barisan":"");
+    gateEl.classList.add("show");
+  } else gateEl.classList.remove("show");
+}
+signBtn.addEventListener("click",()=>{
+  const c=gateQueue.shift();if(!c)return;
+  c.signed=true;c.waiting=false;c.state="work";c.t=0;c.workDur=.6;
+  log("OPIS","✍️ Tandatangan diterima untuk <b>"+c.id+"</b> — dokumen diserahkan kepada agensi berautoriti (human-in-the-loop)");
+  updateGate();
+});
+/* permintaan arahan */
+function askPanel(sc){
+  log(sc.k,"🔔 <b>Minta arahan:</b> "+sc.t);
+  const bar=document.createElement("div");bar.className="fe";bar.style.setProperty("--c",AGENTS[sc.k].color);
+  bar.innerHTML='<b style="color:'+AGENTS[sc.k].color+'">'+sc.k+'</b> minta arahan: '+sc.t+'<br>';
+  const mk=(label,fn)=>{const b=document.createElement("button");b.style.cssText="margin:4px 4px 0;background:#101725;border:1px solid #1e2a3d;color:#dbe4f0;border-radius:6px;padding:3px 8px;cursor:pointer;font-size:11px";b.textContent=label;b.onclick=fn;bar.appendChild(b)};
+  mk(sc.la,()=>{log(sc.k,sc.a);bar.remove()});
+  mk(sc.lb,()=>{log(sc.k,sc.b);bar.remove()});
+  feedEl.prepend(bar);
+}
+/* ══════ panel ══════ */
+function buildAgents(){
+  agentsEl.innerHTML="";
+  for(const k in AGENTS){
+    const a=AGENTS[k];
+    const d=document.createElement("div");d.className="agrow";d.id="ag-"+k;
+    d.innerHTML='<div class="em">'+a.emoji+'</div><div><span class="nm" style="color:'+a.color+'">'+k+' · '+a.name.replace(k+" ","")+'</span><span class="rl">'+a.role+'</span></div><div class="st">🟢 sedia</div>';
+    agentsEl.appendChild(d);
+  }
+}
+function updateAgents(){
+  for(const k in AGENTS){
+    const busy=cases.find(c=>c.state==="work"&&c.route[c.node-1]===k);
+    const enroute=cases.find(c=>c.state==="move"&&c.node<=c.route.length&&c.route[c.node-1]===k);
+    const el=document.querySelector("#ag-"+k+" .st");
+    if(busy)el.innerHTML='🔵 <span style="color:'+AGENTS[k].color+'">'+busy.id+"</span>";
+    else if(enroute)el.textContent="🟡 kes menghampiri";
+    else el.textContent="🟢 sedia";
+  }
+}
+const STAGES=[["Intake",0],["A3","Triase"],["A1|A2","Klasifikasi"],["A4","Analisis"],["A5","Kiraan"],["A8","Norma"],["A7","Dokumen"],["A6","Orkestra"],["HM","Serahan 👤"],["DN","Selesai ✅"]];
+function buildPipe(){
+  pipeEl.innerHTML="";
+  for(const s of STAGES){const d=document.createElement("div");d.className="pcol"+(s[0]==="DN"?" done":"");d.id="pc-"+s[0].replace("|","_");d.innerHTML='<div class="pn">'+s[1]+'</div><div class="pv">0</div>';pipeEl.appendChild(d)}
+}
+function updatePipe(){
+  const cnt={};
+  for(const c of cases){if(c.done)continue;
+    if(c.node===0)cnt.Intake=(cnt.Intake||0)+1;
+    else if(c.node<=c.route.length){const k=c.route[c.node-1];const key=(k==="A1"||k==="A2")?"A1|A2":k;cnt[key]=(cnt[key]||0)+1}
+    else if(c.node===c.route.length+1)cnt.HM=(cnt.HM||0)+1;
+  }
+  for(const s of STAGES){
+    const el=document.querySelector("#pc-"+s[0].replace("|","_"));if(!el)continue;
+    const v=s[0]==="DN"?doneCount:(cnt[s[0]]||0);
+    el.querySelector(".pv").textContent=v;
+    el.classList.toggle("hot",s[0]!=="DN"&&v>0);
+  }
+}
+function buildLegend(){
+  const lg=document.getElementById("legend");
+  for(const k in AGENTS){const a=AGENTS[k];lg.innerHTML+='<span><i style="background:'+a.color+'"></i>'+k+" "+a.name.replace(k+" ","")+"</span>"}
+  lg.innerHTML+='<span><i style="background:#39d98a"></i>Dokumen Islam (faraid)</span><span><i style="background:#f6b23c"></i>Dokumen bukan Islam (Akta 300)</span><span><i style="background:#8a5a12"></i>🤝 Gerbang manusia — keputusan muktamad bukan agent</span>';
+}
+/* ticker */
+document.getElementById("tk").innerHTML=("x ".repeat(0))+
+ "<b>Had pusaka kecil kini RM5 JUTA</b> (dinaik dari RM2j) — Act A1643, berkuat kuasa 15 Julai 2024 ✦ "+
+ "JKPTG: 84,384 kes / RM19.01 bilion selesai 2025; backlog 46,707 kes — sasaran sifar 2028 ✦ "+
+ "Wang Tak Dituntut JANM: RM13.3 bilion (Apr 2025) — ~70% akaun bank tidak aktif ≥7 tahun ✦ "+
+ "Hanya ~5% rakyat Malaysia ada perancangan pewarisan (ARB, Feb 2025) ✦ "+
+ "Sijil faraid BUKAN instrumen pendaftaran tanah — geran SKM sivil tetap diperlukan (Surat Edaran KPTG) ✦ "+
+ "Benchmark: Singapura Probate eService (2023) — probat online penuh tanpa peguam ≤S$2 juta ✦ "+
+ "Sistem pusaka kecil JKPTG: MyeTaPP → MyLAND (permohonan online + kalkulator faraid) ✦ "+
+ "Penama KWSP/insurans orang Islam = pentadbir (wasi) yang mengagih ikut faraid — bukan penerima mutlak ✦ "+
+ "e-Syariah V3 digunakan semua negeri kecuali Sarawak ✦ "+
+ "Fi pusaka kecil P.U.(A) 194/2024: RM30 / RM50 / 0.2%–0.3% nilai harta ✦ "+
+ "Tempoh standard pusaka kecil: 4 bulan (kes lengkap tanpa pertikaian) ✦ "
+ ;
+const tk=document.getElementById("tk");tk.innerHTML+=tk.innerHTML; // duplikasi utk gelung
+/* kawalan kelajuan */
+const spdBtns={sp0:0,sp1:1,sp2:2,sp4:4};
+for(const id in spdBtns){
+  document.getElementById(id).addEventListener("click",()=>{
+    const v=spdBtns[id];
+    if(v===0){paused=!paused;document.getElementById("sp0").classList.toggle("on",paused)}
+    else{paused=false;speed=v;document.getElementById("sp0").classList.remove("on")}
+    for(const i in spdBtns)if(i!=="sp0")document.getElementById(i).classList.toggle("on",spdBtns[i]===v&&!paused);
+  });
+}
+/* jam */
+setInterval(()=>{document.getElementById("clock").textContent=now()},1000);
+/* ══════ gelung utama ══════ */
+buildAgents();buildPipe();buildLegend();
+log("OPIS","🏛️ Opis EA-MY dibuka — 8 agent pakar bertugas. Simulasi berasaskan repo ilmu Fasa 1 (19 fail · 688 sitasi).");
+log("OPIS","🔁 Rebuild stream 3 (institusi + proses) sedang berjalan oleh subagent di latar belakang.");
+let lastUi=0,lastFrameAt=performance.now();
+function step(nowMs){
+  lastFrameAt=nowMs;
+  try{
+    const dtReal=Math.min(.05,(nowMs-last)/1000);last=nowMs;
+    if(!paused)update(dtReal*speed);
+    render(simTime);
+    if(nowMs-lastUi>400){lastUi=nowMs;updateAgents();updatePipe();
+      document.getElementById("stAct").textContent=stats.active;
+      document.getElementById("stDone").textContent=stats.done;
+      document.getElementById("stNorm").textContent=stats.norm;
+    }
+  }catch(err){window.__errs.push(String(err))}
+}
+function frame(nowMs){step(nowMs);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+/* watchdog: simulasi diteruskan walaupun rAF dicairkan (tab tersembunyi) */
+setInterval(function(){var n=performance.now();if(n-lastFrameAt>250)step(n)},40);
+/* dedug handle utk verifikasi */
+window.__ops={get cases(){return cases.length},get done(){return doneCount},get norm(){return normCount},get feed(){return feedEl.children.length}};
+</script>
+</body>
+</html>
