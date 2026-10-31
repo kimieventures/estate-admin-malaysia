@@ -94,9 +94,9 @@ canvas{display:block;border-radius:12px}
     <div class="chip acc">📂 Kes aktif <b id="stAct">0</b></div>
     <div class="chip ok">✅ Selesai <b id="stDone">0</b></div>
     <div class="chip">🛡️ Norma disemak <b id="stNorm">0</b></div>
-    <div class="chip">📚 Sitasi repo <b>688</b></div>
-    <div class="chip">🗂️ Fail ilmu <b>19</b></div>
-    <div class="chip">🔁 Rebuild stream 3 <b style="color:var(--amber)">berjalan</b></div>
+    <div class="chip">📚 Sitasi repo <b>839</b></div>
+    <div class="chip">🗂️ Fail ilmu <b>22</b></div>
+    <div class="chip ok">✅ Fasa 1 <b>lengkap</b></div>
   </div>
 
   <div class="main">
@@ -150,13 +150,13 @@ canvas{display:block;border-radius:12px}
         <table>
           <tr><td>1. Undang-undang civil</td><td>✅ 50KB · 34 sumber</td></tr>
           <tr><td>2. Syariah + bidang kuasa</td><td>✅ 2 fail · 58 sitasi</td></tr>
-          <tr><td>3. Institusi + peta proses</td><td style="color:var(--amber)">🔁 rebuild berjalan</td></tr>
+          <tr><td>3. Institusi + peta proses</td><td>✅ 3 fail · 128 sitasi</td></tr>
           <tr><td>4. Produk EA</td><td>✅ 3 fail · 194 sitasi</td></tr>
           <tr><td>5. Statistik + demografi</td><td>✅ 2 fail</td></tr>
           <tr><td>6. Kes rujukan + Templat A–F</td><td>✅ 3 fail · 85 sitasi</td></tr>
           <tr><td>7. Bottleneck + penambahbaikan</td><td>✅ 3 fail</td></tr>
         </table>
-        <div class="fnote">Repo: /opt/data/profiles/estateadministration-project/estate-admin-malaysia — 19 fail ilmu · 688 sitasi · git versioned. Fasa 2 (sintesis jurnal v2.0) menunggu rebuild stream 3.</div>
+        <div class="fnote">Repo: /opt/data/profiles/estateadministration-project/estate-admin-malaysia — 22 fail ilmu · 839 sitasi · git versioned. Fasa 1 lengkap (2026-10-31) → Fasa 2 (sintesis jurnal v2.0) sedia dimulakan.</div>
       </div>
     </div>
   </div>
@@ -509,8 +509,8 @@ for(const id in spdBtns){
 setInterval(()=>{document.getElementById("clock").textContent=now()},1000);
 /* ══════ gelung utama ══════ */
 buildAgents();buildPipe();buildLegend();
-log("OPIS","🏛️ Opis EA-MY dibuka — 8 agent pakar bertugas. Simulasi berasaskan repo ilmu Fasa 1 (19 fail · 688 sitasi).");
-log("OPIS","🔁 Rebuild stream 3 (institusi + proses) sedang berjalan oleh subagent di latar belakang.");
+log("OPIS","🏛️ Opis EA-MY dibuka — 8 agent pakar bertugas. Simulasi berasaskan repo ilmu Fasa 1 (22 fail · 839 sitasi).");
+log("OPIS","✅ Fasa 1 LENGKAP — stream 3 (institusi + proses) berjaya dibina semula; 22 fail · 839 sitasi.");
 let lastUi=0,lastFrameAt=performance.now();
 function step(nowMs){
   lastFrameAt=nowMs;

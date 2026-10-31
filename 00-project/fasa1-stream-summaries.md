@@ -54,9 +54,23 @@ nota: "Key findings & gaps di bawah seperti dilaporkan agent (atau dikesan semas
 
 ---
 
-## Stream 3 — Institusi + peta proses (GAGAL — REBUILD)
+## Stream 3 — Institusi + peta proses ✅ (REBUILD SIAP 2026-10-31)
 
-Tiada fail dihasilkan (HTTP 402 sebelum penulisan). Research diselamatkan ke `00-project/salvage/stream-3-research-notes.md` (32 URL, 12 petikan hasil carian, 20 nota narasi). Rebuild sedang dijalankan dengan bantuan nota tersebut.
+Gagal kali pertama (HTTP 402 sebelum penulisan); dibina semula oleh subagent (deleg_22600d32) dengan bantuan salvage (`00-project/salvage/stream-3-research-notes.md`, 32 URL). Keputusan: 3 fail lengkap — amanahraya-berhad.md (2,668 patah, 48 sitasi), courts-and-offices.md (3,664 patah, 50 sitasi), process-maps.md (2,977 patah, 30 sitasi).
+
+**Key findings (agent-reported):**
+- **PEMBETULAN PENTING:** Corporatization ARB = 1995 melalui **Public Trust Corporation Act 1995 [Act 532]** (kuat kuasa 1 Ogos 1995), BUKAN "Akta 682 2001" — Act 682 disahkan sebagai **University of Malaya Act 1961** (sitasi PDF rasmi UM). Jangan guna Act 682 dalam mana-mana modul nasihat.
+- Pemilikan ARB: 99.99% Menteri Kewangan (Terperbadanan) + 0.01% Pesuruhjaya Tanah Persekutuan; di bawah Kementerian Kewangan.
+- Kuasa fidusiari ARB (PTCA 1995): s.11–12 (pelantikan pemegang amanah/wasi), s.13 (geran probat/SKM), s.16 (penguasaan harta intestat), s.17(1) (pusaka ringkas harta alih ≤RM600,000 tanpa mahkamah), s.33 (fi).
+- Fi pentadbiran ARB: berperingkat 5% (RM25k pertama)/4%/3%/2%/1% baki; 2% laluan PPKP (PERLU SAHKAN jadual rasmi).
+- Statistik ARB: 230,000+ kes pusaka & 155,000+ kes pentadbiran >RM16.7 bilion; anak syarikat AmanahRaya Trustees (>RM360 bilion aset), ARIM (RM7.68 bilion AUM).
+- Mahkamah Tinggi: komisen pentadbir maks 5% (s.43(1) Act 97); bon 2 penjamin (tak wajib ≤RM50,000, s.35); Order 71/72 KM 2012; pendengaran tanpa pertikaian 30 hari (AA 3/2009); e-Filing peguam sahaja (tiada e-Probate awam).
+- JKPTG/PPKP: had RM5 juta (Act A1643); fi RM30/RM50/0.2%/0.3% (P.U.(A) 194/2024, MyLAND ePayment); tempoh 4–6 bulan (FAQ) vs minimum 5½ bulan Borang A s.8 (kedua direkodkan).
+- Sijil faraid: s.50 Akta 505; fi RM30/RM20/RM10 + keluar ~5 hari (JKSM); jadual negeri PERLU SAHKAN.
+- MdI dilantik pentadbir pusaka bawah s.5(4) Enakmen Pentadbiran Agama Islam (Selangor) 2003; Baitulmal pewaris akhir s.81(2).
+- 7 laluan proses lengkap: probat/SKM (3–6 bulan, peguam RM2,000–5,000); pusaka kecil MyLAND; ARB; WTD eGUMIS (UMA-7, tiada caj, tiada had masa s.13(1) Akta 370); KWSP (penama Muslim=wasi; bantuan kematian RM2,500 s.58(1)); tanah (NLC s.346 + Borang 14A); syer (Companies Act 2016 s.109, pendaftaran 60 hari).
+
+**Gaps utama:** jadual fi rasmi ARB tidak diterbitkan; fi mahkamah probat tiada sumber tunggal; tempoh rayuan s.29 Akta 98 (14 vs 30 hari) PERLU SAHKAN; fi sijil faraid negeri daripada sumber ketiga; peruntukan s.5(4) negeri lain tak disahkan satu persatu; tempoh pemprosesan WTD tak diterbitkan; duti setem/fi pendaftaran tanah tiada kadar tunggal; SLA KWSP & dasar bank amaun kecil PERLU SAHKAN; fi transmission syer & kaedah Bursa/CDS PERLU SAHKAN; produk wakaf ARB + statistik tahunan ARB tiada; peta proses sah untuk Semenanjung (Sabah/Sarawak tidak diliputi).
 
 ---
 

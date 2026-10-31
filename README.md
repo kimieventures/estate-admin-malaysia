@@ -47,7 +47,7 @@ Repo rujukan utama untuk projek **webapp/automation Pentadbiran Pusaka Malaysia*
 |--------|-------|-------------|--------|
 | 1. Undang-undang civil | research-1 | `01-legal-framework/civil-law.md` | ✅ fail selamat di disk (50KB, 34 sumber) — final summary gagal 402 |
 | 2. Undang-undang syariah + bidang kuasa | research-2 | `01-legal-framework/syariah-law.md`, `01-legal-framework/jurisdiction-civil-vs-syariah.md` | ✅ ditulis (final summary agent gagal 402; dikesan semasa verifikasi) |
-| 3. Institusi + peta proses | research-3 | `02-institutions/*`, `03-processes/process-maps.md` | 🔁 dibina semula (gagal 402; salvage 32 URL sedia) |
+| 3. Institusi + peta proses | research-3 | `02-institutions/*`, `03-processes/process-maps.md` | ✅ siap (rebuild) — 3 fail, 128 sitasi; pembetulan Akta 532 vs 682 |
 | 4. Produk EA | research-4 | `04-products/*` | ✅ siap — 3 fail, 194 sitasi, 21 PERLU SAHKAN |
 | 5. Statistik + demografi | research-5 | `05-statistics/*` | ✅ siap — 2 fail, angka konflik direkodkan berpasangan |
 | 6. Kes rujukan | research-6 | `06-case-studies/*` | ✅ ditulis (final summary agent gagal 402; fail lengkap + Templat A–F) |
