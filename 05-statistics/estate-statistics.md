@@ -182,6 +182,8 @@ Malaysia merekodkan 198,992 kematian pada 2024 (kadar kematian kasar 5.8 setiap 
 - **Statistik tahunan permohonan pusaka ringkas AmanahRaya Berhad (harta alih ≤RM600,000)** tidak diperoleh secara awam.
 - **Statistik Keluarga Malaysia memerlukan nota**: peratusan penerimaan JKPTG (54–60% vs 65%) berbeza antara dua jurnal akademik — asas data masing-masing perlu disemak.
 
+PENYELESAIAN SEPARA (Fasa 2, 2026-10-31): (a) Statistik probat/SKM MT — Yearbook Badan Kehakiman 2022 & 2023 dimuat turun dan diimbas penuh: TIADA siri kod 31/32 diterbitkan; hanya sivil agregat (MT 2023: 133,552 pendaftaran / 130,263 pelupusan / baki 39,998; kadar pelupusan 76.5%); Yearbook 2024/2025 belum diterbitkan — jurang kekal, perlukan permohonan data kepada Ketua Pendaftar. (b) Siri JKPTG — titik baharu disahkan: backlog 72,348 ialah angka Ogos 2022 (bukan 2021; Utusan via keratan akhbar rasmi JKPTG, kumpulan pasca-pandemik 2020–2021; BPP ~60,000 kes/tahun, purata 65% penerimaan — Jurnal LAND 6/2023) dan 31 Dis 2025: backlog 46,707, 84,384 kes selesai bernilai RM19.01 bilion (Hansard/Bernama 29-01-2026; RTM catat 46,077/84,028 — percanggahan direkodkan); titik akhir tahun 2023/2024 tidak diterbitkan awam (6 usaha; dataset MyeTaPP archive.data.gov.my tidak dapat dicapikan dari persekitaran ini). Rujukan penuh + sitasi: `02-institutions/gap-mission-fi-statistik.md` Misi 3–4.
+
 ## Nota sumber
 
 Sumber primer: Bernama/Parlimen (Hansard), kenyataan Kementerian Kewangan, JKPTG, JANM/ANM, DOSM, KWSP. Sumber sekunder (tanda dengan berhati-hati): jurnal akademik (IIUM Law Journal, Kanun, JONUS), firma guaman/hartanah (PropertySifu, Malaysia4U), tinjauan komersial (Rockwills, Sun Life). Semua URL dicapai 2026-10-31.
