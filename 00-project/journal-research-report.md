@@ -1,7 +1,7 @@
 ---
 title: "Jurnal Penyelidikan & Analisis — Pentadbiran Pusaka di Malaysia: Ilmu, Research Problems dan Resolusi Melalui Sistem Automasi Pakar Berasaskan Agent"
 project: EA-MY (Estate Administration Malaysia)
-version: 2.0 (sintesis penuh Fasa 2 — menunggu semakan pemilik projek)
+version: 2.1 (kemas kini selepas 4 misi Fasa 2 selesai — menunggu semakan pemilik projek)
 updated: 2026-10-31
 status: review-pending (untuk semakan Kimie sebelum go/no-go Fasa 3)
 bahasa: Bahasa Malaysia (formal); rujukan civil/common law dalam English dibenarkan
@@ -17,7 +17,7 @@ asas: Fasa 1 — 22 fail ilmu, 839 sitasi inline, 7/7 stream research selesai
 2. **Masalah utama Malaysia teruk dan terdokumen:** hanya **~5%** rakyat ada perancangan pewarisan (ARB, Feb 2025); **RM13.3 bilion** wang tak dituntut di BPN (Apr 2025); backlog pusaka kecil **46,707 kes** (31 Dis 2025) walaupun 84,384 kes/RM19.01 bilion selesai pada 2025; kes selesai 2025 hanya ≈ **42%** daripada ~199,000 kematian setahun.
 3. **Dwi-jurisdiction ialah punca kerumitan No. 1:** mesinari probat kekal civil/federal (Senarai Persekutuan 4(e)(i)) manakala kandungan hukum pusaka Islam di bidang negeri — model "twin-track" disahkan dalam kes *Latifah* [2007]. Sijil faraid (s.50 Akta 505) wajib untuk Muslim tetapi **perintah syariah tidak boleh didaftarkan** di pejabat tanah — geran sivil tetap diperlukan (Surat Edaran KPTG / Bar Circular 077/2026).
 4. **Laluan pentadbiran kini jelas:** pusaka ringkas harta alih ≤RM600,000 (ARB, s.17(1) Act 532) → pusaka kecil ≤RM5 juta (PPKP/JKPTG, Act A1643 berkuat kuasa 15 Julai 2024) → Mahkamah Tinggi (>RM5 juta, Act 97). Tempoh: 4–6 bulan (pusaka kecil), 3–6 bulan (probat tanpa pertikaian).
-5. **8 research problems (RP-01→RP-08) disahkan bukti** dengan skor keyakyinan (matriks penuh: `00-project/rp-bukti-matriks.md`): RP-01 (harta tertunggak) dan RP-03 (dwi-jurisdiction) KUAT; RP-02 (kelewatan) KUAT untuk angka backlog; beberapa angka "harta beku RM60–90 bilion" **dipertikaikan kerajaan** — digunakan dengan caveat.
+5. **8 research problems (RP-01→RP-08) disahkan bukti** dengan skor keyakyinan (matriks penuh: `00-project/rp-bukti-matriks.md`): **hanya RP-03 (dwi-jurisdiction) mencapai KUAT penuh** — yang lain SEDERHANA (fenomena disahkan tetapi angka tajuk/volum dipertikaikan atau tiada, cth. “harta beku RM60–90 bilion” dinafikan sebahagian kerajaan; webapp mesti paparkan julat berlabel, bukan angka tunggal).
 6. **Penyelesaian dicadangkan:** platform webapp + 8 agent pakar (A1 legal, A2 syariah, A3 fiduciary, A4 analisis kes, A5 enjin kiraan faraid/hibah/wasiat deterministik, A6 orkestrator pelaksana arahan, A7 dokumen, A8 pematuhan deontik) dengan Perpustakaan Norma (WAJIB/DIBENAR/DILARANG) dan human-in-the-loop di semua titik keputusan. Prototype visual "Opis EA-MY" sedia (`09-webapp-blueprint/agent-ops-dashboard.html`).
 7. **Benchmark membuktikan penyelesaian mungkin:** Singapura Probate eService (2023, ≤S$2 juta, tanpa peguam) dan UK MyHMCTS (probat digital wajib, geran 48 jam) — Malaysia masih TIADA e-Probate awam; sistem sedia ada (MyLAND, e-Syariah V3) belum berintegrasi hujung-ke-hujung.
 8. **Keputusan yang perlu anda tetapkan selepas review:** go/no-go Fasa 3, keutamaan modul MVP, pemosisian (awam vs profesional), skop geografi (Semenanjung dulu), dan pendekatan semakan pakar (rujuk Seksyen 9).
@@ -30,7 +30,7 @@ Dokumen ini ialah **jurnal penyelidikan induk** projek EA-MY: (i) memetakan ilmu
 
 **Kaedah:** 7 stream research selari (subagent) dengan kawalan citation wajib; setiap fakta membawa sitasi `[Sumber: — URL, dicapai]`; fakta tidak sah ditanda `PERLU SAHKAN`; jurang direkod dalam seksyen Gaps setiap fail + daftar jurang pusat (`00-project/fasa1-stream-summaries.md`). Verifikasi silang dilakukan semasa sintesis (contoh: pembetulan Akta 532 vs 682 disahkan oleh 2 stream bebas dengan PDF rasmi UM).
 
-**Had kaedah:** sumber awam sahaja (tiada akses pangkalan MLJ/CLJ berlangganan); keputusan mahkamah syariah jarang diterbitkan terbuka; peta proses terhad kepada Semenanjung (Sabah/Sarawak dalam misi jurang Fasa 2); statistik probat Mahkamah Tinggi tidak diterbitkan sebagai siri tahunan.
+**Had kaedah:** sumber awam sahaja (tiada akses pangkalan MLJ/CLJ berlangganan); keputusan mahkamah syariah jarang diterbitkan terbuka; peta proses terhad kepada Semenanjung — kedudukan Sabah/Sarawak kini dirangkum dalam `01-legal-framework/gap-mission-undang-undang.md` (SEDA 1955 tidak terpakai di sana; Sabah: P&A Ordinance [Cap. 109] + ANSEO [Cap. 1] + Muslim Wills Enactment 2018; Sarawak: geran dikeluarkan **Pegawai Probet** bawah Cap. 80 — jawatan itu dipegang ARB sejak 1.8.1995); statistik probat Mahkamah Tinggi **disahkan TIDAK diterbitkan** (Yearbook Badan Kehakiman 2022/2023 diimbas penuh — tiada siri kod 31/32).
 
 ---
 
@@ -59,7 +59,7 @@ Estate administration ialah perkhidmatan **fiduciary**: pentadbir pusaka (admini
 [rujuk: `03-processes/process-maps.md` untuk 7 peta proses penuh dengan langkah/dokumen/yuran/tempoh]
 
 ### 2.4 Amanahraya Berhad — pembetulan penting
-ARB diperbadankan **1995** di bawah **Public Trust Corporation Act 1995 [Act 532]** (kuat kuasa 1 Ogos 1995) — BUKAN "Act 682 2001" (Akta 682 ialah University of Malaya Act 1961). Pemilikan: 99.99% Menteri Kewangan (Terperbadanan) + 0.01% Pesuruhjaya Tanah Persekutuan. Kuasa fidusiari: s.11–12 (pemegang amanah/wasi), s.13 (geran), s.16 (penguasaan harta intestat), s.17(1) (pusaka ringkas ≤RM600k), s.33 (fi). Statistik: 230,000+ kes pusaka & 155,000+ pentadbiran >RM16.7 bilion. Fi pentadbiran 5%→1% berperingkat (sumber pegawai ARB; PERLU SAHKAN jadual rasmi). [rujuk: `02-institutions/amanahraya-berhad.md`]
+ARB diperbadankan **1995** di bawah **Public Trust Corporation Act 1995 [Act 532]** (kuat kuasa 1 Ogos 1995) — BUKAN "Act 682 2001" (Akta 682 ialah University of Malaya Act 1961). Pemilikan: 99.99% Menteri Kewangan (Terperbadanan) + 0.01% Pesuruhjaya Tanah Persekutuan. Kuasa fidusiari: s.11–12 (pemegang amanah/wasi), s.13 (geran), s.16 (penguasaan harta intestat), s.17(1) (pusaka ringkas ≤RM600k), s.33 (fi). Statistik: 230,000+ kes pusaka & 155,000+ pentadbiran >RM16.7 bilion. Fi pentadbiran 5%→1% berperingkat — **kini diterbitkan rasmi** di FAQ `amanahraya.my/services/estate-administration/` (disahkan misi jurang Fasa 2; jadual khusus pusaka am Semenanjung kekal PERLU SAHKAN). [rujuk: `02-institutions/amanahraya-berhad.md`]
 
 ### 2.5 Kenapa projek ini
 Angka-angka di Ringkasan Eksekutif menunjukkan sistem sedia ada tertunggak dan sukar diakses orang awam; laluan penyelesaian digital (benchmark SG/UK) belum wujud di Malaysia; dan kepakaran fiduciary terhad. Research problems (Seksyen 4) memformalkan masalah ini; Seksyen 6 mencadangkan resolusi.
@@ -76,7 +76,7 @@ Angka-angka di Ringkasan Eksekutif menunjukkan sistem sedia ada tertunggak dan s
 | Institusi | `02-institutions/` | ARB (Act 532); Mahkamah Tinggi (Order 71/72, e-Filing peguam sahaja); PPKP/JKPTG (MyLAND, had RM5j); JKSM (e-Syariah V3, kecuali Sarawak); MdI (s.5(4) Enakmen Selangor); BPN (WTD RM13.3b, eGUMIS) |
 | Peta proses | `03-processes/process-maps.md` | 7 laluan lengkap: probat/SKM (3–6 bulan; peguam RM2k–5k); pusaka kecil (fi RM30/RM50/0.2–0.3%; 4–6 bulan); ARB; WTD (UMA-7, tiada caj, tiada had masa); KWSP (RM2,500 s.58(1)); tanah (NLC s.346, Borang 14A); syer (s.109 Companies Act 2016) |
 | Produk | `04-products/` | Wasiat RM298–RM30,000 (Maybank/Rockwills/MAIS/ARB); HiBAHKU (RM1,500+RM500); Pewarisan Bertakaful (RM10/bln); hibah amanah (TH/ASNB); trust policy FSA hanya bukan Islam; tiada "MyEstate" — portfolio sebenar disahkan |
-| Statistik | `05-statistics/` | WTD RM9.4b(2021)→RM13.3b(2025); backlog 72,348(2021)→46,707(2025), sasaran sifar 2028; wasiat ~5% (ARB 2025) vs 37% (Sun Life 2026 — definisi beza); kematian 198,992 (2024); Islam 63.5%; 65+ 8.0% |
+| Statistik | `05-statistics/` | WTD RM9.4b(2021)→RM13.3b(2025); backlog 72,348 (Ogos 2022 — tahun dibetulkan misi jurang)→46,707(2025), sasaran sifar 2028; wasiat ~5% (ARB 2025) vs 37% (Sun Life 2026 — definisi beza); kematian 198,992 (2024); Islam 63.5%; 65+ 8.0% |
 | Kes rujukan | `06-case-studies/` | Kes civil (Savatery 2023 — suspicious circumstances; Divyyaa Machap [2024] — penama KWSP terkini menang; How Yew Hock 1996) + syariah (Nyonya Tahir — status agama; wasiat >1/3 — Sabri) + **Templat A–F** prosedur |
 | Kekangan | `07-limitations/` | Tempoh terdokumen; sijil faraid tak boleh daftar tanah; waris hilang (s.108 Akta Bukti — 7 tahun; s.18 JPN tiada sijil tanpa mayat); kos; kejahilan 70% & bertangguh 43.3% (UiTM) |
 | Penambahbaikan | `08-improvements/` | MyeTaPP→MyLAND; e-Syariah V3; TIADA e-Probate awam; benchmark SG/UK; cadangan roadmap berkeutamaan |
@@ -85,12 +85,12 @@ Angka-angka di Ringkasan Eksekutif menunjukkan sistem sedia ada tertunggak dan s
 
 ## 4. Research Problems dengan Bukti (skor keyakyinan)
 
-> Matriks penuh dengan senarai bukti setiap per item: `00-project/rp-bukti-matriks.md` (Fasa 2). Skor di bawah ringkasan sintesis.
+> Matriks penuh dengan senarai bukti setiap per item: `00-project/rp-bukti-matriks.md` (Fasa 2). **Skor rasmi = matriks** (penilaian konservatif: hanya RP-03 KUAT penuh); skor di bawah diharmonikan dengannya selepas misi jurang selesai.
 
-### RP-01 — Harta pusaka tertunggak tidak dituntut (dead capital) — **KUAT**
+### RP-01 — Harta pusaka tertunggak tidak dituntut (dead capital) — **SEDERHANA** (WTD rasmi: KUAT)
 **Bukti:** WTD BPN RM13.3 bilion (Apr 2025, ~70% akaun bank tidak aktif ≥7 tahun; hanya RM4b dituntut sejak 1977) — rasmi; KWSP pengeluaran kematian RM1.52b (2020) — rasmi; harta beku RM65b (ARB, Feb 2025, separuh-rasmi) hingga RM90b (media) — **dipertikaikan** (MAMPU 2015, JKPTG 2022 ~RM13.7b); hanya ~5% ada perancangan (ARB 2025); jurang pemprosesan ≈58% (Seksyen 5.3). **Jurang:** tiada angka rasmi tunggal nilai harta beku.
 
-### RP-02 — Tempoh pentadbiran panjang & proses kompleks — **KUAT (angka backlog) / SEDERHANA (purata tempoh)**
+### RP-02 — Tempoh pentadbiran panjang & proses kompleks — **SEDERHANA** (backlog rasmi: KUAT; purata tempoh: LEMAH — tiada median diterbitkan)
 **Bukti:** backlog JKPTG 46,707 kes (Hansard/Bernama 29 Jan 2026); 84,384 kes selesai 2025; tempoh standard 4 bulan (Parlimen Jan 2026) vs 4–6 bulan (FAQ JKPTG) vs min 5½ bulan Borang A (artikel JKPTG); probat 3–6 bulan, SKM 6–9 bulan (firma guaman). **Jurang:** tiada median rasmi per pejabat; backlog probat Mahkamah Tinggi tidak diterbitkan.
 
 ### RP-03 — Kerumitan dwi-jurisdiction — **KUAT**
@@ -99,16 +99,16 @@ Angka-angka di Ringkasan Eksekutif menunjukkan sistem sedia ada tertunggak dan s
 ### RP-04 — Akses kepakaran terhad & kos tinggi — **SEDERHANA**
 **Bukti:** yuran peguam RM2,000–5,000 (pusaka kecil) / RM4,000+ (mahkamah); fi pentadbir 5% (s.43(1) Act 97) & ARB 5%→1% (PERLU SAHKAN rasmi); fi wasiat RM298–RM30,000; bantuan guaman JBG RM10 (akses rendah); kejahilan 70% punca utama (UiTM Sarawak). **Jurang:** tiada kajian rasmi jurang akses demografi.
 
-### RP-05 — Pengiraan bahagian ralat & tak berstandard — **SEDERHANA→KUAT (kaedah) / LEMAH (bukti ralat)**
+### RP-05 — Pengiraan bahagian ralat & tak berstandard — **SEDERHANA** (kaedah: KUAT; volum ralat: LEMAH)
 **Bukti:** kaedah faraid (12 ashab al-furud, asabah, 'aul/radd) & skema Act 300 didokumenkan penuh; kalkulator faraid JKPTG wujud (MyLAND) tapi terpisah daripada proses permohonan; kes Divyyaa Machap [2024] menunjukkan kompleksiti penamaan yang mengelirukan. **Jurang:** tiada statistik ralat pengiraan; tiada enjin piawai bersepadu (ini yang Fasa 3 bina).
 
-### RP-06 — Data silos antara agensi — **KUAT**
+### RP-06 — Data silos antara agensi — **SEDERHANA** (5 sistem berasingan disahkan nama daripada sumber rasmi; dakwaan ‘tiada integrasi’ sebahagian inferens — berhati-hati)
 **Bukti:** sistem berasingan (MyLAND vs e-Syariah V3 vs e-Filing mahkamah vs eGUMIS vs bank/KWSP); waris kena bawa dokumen sama berulang (proses PPKP); tiada status kes tunggal; sijil faraid fizikal dihantar antara agensi. **Jurang:** statistik penggunaan sistem digital tidak diterbitkan.
 
-### RP-07 — Waris hilang & dokumen hilang — **KUAT (mekanisme) / LEMAH (frekuensi)**
+### RP-07 — Waris hilang & dokumen hilang — **SEDERHANA** (mekanisme primer: KUAT; volum: LEMAH)
 **Bukti:** anggapan kematian 7 tahun (s.108 Akta Bukti 1950); JPN tidak keluarkan sijil tanpa mayat (s.18 Akta Pendaftaran Kelahiran & Kematian 1957) — perlu deklarasi Mahkamah Tinggi; perbezaan tempoh menunggu civil vs syariah dikenal pasti sebagai kelewatan. **Jurang:** tiada statistik kes waris hilang.
 
-### RP-08 — Ilmu kes tidak berstruktur — **KUAT**
+### RP-08 — Ilmu kes tidak berstruktur — **KUAT** (korpus 30+ kes bercitation terkelaskan + Templat A–F terbina)
 **Bukti:** keputusan syariah "jarang diterbitkan terbuka" (semua stream 6 mengesahkan); kepakaran preseden tersebar; kami sendiri terpaksa bina Templat A–F dari kes terpilih. Deliverable Templat A–F (`06-case-studies/lessons-and-templates.md`) ialah bukti bahawa template boleh diekstrak — asas modul case reasoning A4.
 
 ---
@@ -188,7 +188,7 @@ Operator: `WAJIB(p)`, `DIBENAR(p)`, `DILARANG(p) ≡ WAJIB(¬p)`, norma bersyara
 | N-W-01 | DILARANG wasiat Muslim memberi manfaat >1/3 harta bersih tanpa persetujuan waris | ✅ terverifikasi |
 | N-PA-01 | WAJIB geran probat/SKM sebelum pengambilan harta melebihi had agensi (Act 97) | ✅ terverifikasi |
 | N-EX-01 | DILARANG pentadbir membahagikan harta sebelum hutang & perbelanjaan pentadbiran dilangsaikan | ✅ terverifikasi (urutan piawai) |
-| N-WC-01 | WAJIB wasiat civil ditandatangani testator + disaksikan (formaliti Wills Act 1959 s.5) | 🔄 misi jurang Fasa 2 |
+| N-WC-01 | WAJIB wasiat civil bertulis, ditandatangani testator, disaksikan 2 saksi serentak (Wills Act 1959 s.5 — teks disahkan; Semenanjung sahaja, tidak terpakai kepada Muslim s.2(2)) | ✅ terverifikasi |
 | N-PP-01 | WAJIB mesyuarat waris PPKP (proses Akta 98) sebelum perintah pembahagian | ✅ terverifikasi |
 
 ### 6.4 Enjin pengiraan bahagian (A5)
@@ -214,10 +214,10 @@ Deterministik (aritmetik pecahan munasabah, bukan LLM); skop terverifikasi: fara
 | Deliverable | Status |
 |---|---|
 | Jurnal v2.0 (dokumen ini) | ✅ siap — menunggu semakan pemilik projek |
-| Data pack & trend (`05-statistics/data-pack.md`) | 🔄 berjalan (subagent) |
-| Matriks RP↔bukti (`00-project/rp-bukti-matriks.md`) | 🔄 berjalan (subagent) |
-| Misi jurang: undang-undang (s.29 Akta 98, Wills Act s.5, enakmen wasiat Selangor, Sabah/Sarawak) | 🔄 berjalan (subagent) |
-| Misi jurang: fi & statistik (fi ARB/mahkamah, statistik probat, backlog JKPTG 2022–24) | 🔄 berjalan (subagent) |
+| Data pack & trend (`05-statistics/data-pack.md`) | ✅ siap — 13 penunjuk, 48 sumber, 8 konflik berpasangan direkodkan |
+| Matriks RP↔bukti (`00-project/rp-bukti-matriks.md`) | ✅ siap — 325 baris, 72 sitasi; hanya RP-03 KUAT penuh |
+| Misi jurang: undang-undang | ✅ siap — s.29 = **30 hari** (A1643, teks LOM disahkan); Wills Act s.5 disahkan (2 saksi); **Enakmen Wasiat Orang Islam (Selangor) 1999 wujud & berkuat kuasa** (s.26 penuh); Sabah/Sarawak lengkap didokumenkan |
+| Misi jurang: fi & statistik | ✅ siap — fi ARB **kini rasmi** (FAQ amanahraya.my); fi mahkamah RM160/RM16 (Lampiran B1 KKM 2012 via P.U.(A) 67/2013); statistik probat disahkan TIDAK diterbitkan; 72,348 = Ogos 2022 (tahun dibetulkan) |
 | Semakan pakar luar (peguam/pakar syariah) | ⏸ dicadang — menunggu keputusan pemilik projek (D-5) |
 
 ---
@@ -242,7 +242,7 @@ Deterministik (aritmetik pecahan munasabah, bukan LLM); skop terverifikasi: fara
 | D-1 | Go/no-go **Fasa 3** | Mulakan dengan sub-fasa 3.2 (Perpustakaan Norma) + 3.4 (enjin kiraan) dahulu? |
 | D-2 | **Modul MVP** pertama | (a) Wizard klasifikasi kes · (b) Kalkulator faraid + audit trail · (c) Chat advisorial RAG · (d) Penjejak proses/checklist |
 | D-3 | **Pemosisian** | Awam (maklumat pendidikan) vs profesional (decision-support peguam/pentadbir) vs kedua-dua berperingkat |
-| D-4 | **Skop geografi** | Semenanjung dahulu (jurang Sabah/Sarawak masih terbuka) vs tunggu misi jurang selesai |
+| D-4 | **Skop geografi** | Cadangan: Semenanjung dahulu (peta proses sah Semenanjung; Sabah/Sarawak kini didokumenkan — Sabah: P&A Ordinance Cap. 109 + ANSEO Cap. 1 + Muslim Wills Enactment 2018; Sarawak: Pegawai Probet = ARB sejak 1995) vs liputan Sabah/Sarawak dari awal |
 | D-5 | **Semakan pakar luar** | Libatkan peguam/pakar syariah sebelum pembinaan enjin (Fasa 2.6)? |
 | D-6 | **Data & PDPA** | Pendekatan simpanan data pengguna bila webapp dibina |
 
@@ -264,4 +264,4 @@ Deterministik (aritmetik pecahan munasabah, bukan LLM); skop terverifikasi: fara
 
 ---
 
-*Versi 2.0 dikemas kini oleh Zizi pada 2026-10-31. Matriks RP↔bukti, data pack dan dua misi jurang sedang berjalan dan akan dilampirkan sebagai rujukan silang jurnal apabila siap. **Semakan pemilik projek (Kimie) diperlukan sebelum Fasa 3 dimulakan.***
+*Versi 2.1 dikemas kini oleh Zizi pada 2026-10-31 selepas KEEMPAT-EMPAT misi Fasa 2 selesai: skor RP diharmonikan dengan matriks (hanya RP-03 KUAT penuh); s.29 diselesaikan (30 hari, A1643); Wills Act s.5 & Enakmen Wasiat Selangor 1999 disahkan; fi ARB kini rasmi; kedudukan Sabah/Sarawak didokumenkan; tahun backlog 72,348 dibetulkan (Ogos 2022). **Semakan pemilik projek (Kimie) diperlukan sebelum Fasa 3 dimulakan.***

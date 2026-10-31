@@ -53,7 +53,7 @@ Repo rujukan utama untuk projek **webapp/automation Pentadbiran Pusaka Malaysia*
 | 6. Kes rujukan | research-6 | `06-case-studies/*` | ✅ ditulis (final summary agent gagal 402; fail lengkap + Templat A–F) |
 | 7. Bottleneck + penyelesaian + penambahbaikan | research-7 | `07-limitations/*`, `08-improvements/*` | ✅ siap — 3 fail (Act A1643 RM5j, MyLAND, benchmark SG/UK) |
 
-Fasa 1 SELESAI (2026-10-31): 22 fail ilmu, 839 sitasi, 7/7 stream, skill estate-administration-malaysia ✅, prototype dashboard ✅. **FASA 2 BERJALAN**: jurnal v2.0 siap (menunggu semakan pemilik projek) + 4 misi selari (data pack, matriks RP↔bukti, misi jurang undang-undang, misi jurang fi & statistik).
+Fasa 1 SELESAI (2026-10-31): 22 fail ilmu, 839 sitasi, 7/7 stream, skill estate-administration-malaysia ✅, prototype dashboard ✅. **FASA 2 SIAP** (2026-10-31): jurnal v2.1 + data pack (13 penunjuk) + matriks RP↔bukti (325 baris) + 2 misi jurang (s.29 = 30 hari; fi ARB rasmi; Sabah/Sarawak lengkap) — semua deliverable lengkap, menunggu semakan pemilik projek (D-1→D-6) sebelum Fasa 3.
 
 ---
 
