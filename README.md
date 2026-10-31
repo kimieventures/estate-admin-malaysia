@@ -45,13 +45,13 @@ Repo rujukan utama untuk projek **webapp/automation Pentadbiran Pusaka Malaysia*
 
 | Stream | Agent | Fail target | Status |
 |--------|-------|-------------|--------|
-| 1. Undang-undang civil | research-1 | `01-legal-framework/civil-law.md` | 🔄 berjalan |
+| 1. Undang-undang civil | research-1 | `01-legal-framework/civil-law.md` | ✅ fail selamat di disk (50KB, 34 sumber) — final summary gagal 402 |
 | 2. Undang-undang syariah + bidang kuasa | research-2 | `01-legal-framework/syariah-law.md`, `01-legal-framework/jurisdiction-civil-vs-syariah.md` | ✅ ditulis (final summary agent gagal 402; dikesan semasa verifikasi) |
-| 3. Institusi + peta proses | research-3 | `02-institutions/*`, `03-processes/process-maps.md` | ❌ gagal 402 sebelum tulis fail — research di-salvage ke `00-project/salvage/stream-3-research-notes.md`; akan dibina semula |
-| 4. Produk EA | research-4 | `04-products/*` | 🔄 berjalan |
-| 5. Statistik + demografi | research-5 | `05-statistics/*` | 🔄 berjalan |
+| 3. Institusi + peta proses | research-3 | `02-institutions/*`, `03-processes/process-maps.md` | 🔁 dibina semula (gagal 402; salvage 32 URL sedia) |
+| 4. Produk EA | research-4 | `04-products/*` | ✅ siap — 3 fail, 194 sitasi, 21 PERLU SAHKAN |
+| 5. Statistik + demografi | research-5 | `05-statistics/*` | ✅ siap — 2 fail, angka konflik direkodkan berpasangan |
 | 6. Kes rujukan | research-6 | `06-case-studies/*` | ✅ ditulis (final summary agent gagal 402; fail lengkap + Templat A–F) |
-| 7. Bottleneck + penyelesaian + penambahbaikan | research-7 | `07-limitations/*`, `08-improvements/*` | 🔄 berjalan |
+| 7. Bottleneck + penyelesaian + penambahbaikan | research-7 | `07-limitations/*`, `08-improvements/*` | ✅ siap — 3 fail (Act A1643 RM5j, MyLAND, benchmark SG/UK) |
 
 Fasa seterusnya: verifikasi fakta, klasifikasi akhir, `09-webapp-blueprint/agent-roles.md`, skill `estate-administration-malaysia`.
 
