@@ -50,7 +50,7 @@ Repo rujukan utama untuk projek **webapp/automation Pentadbiran Pusaka Malaysia*
 | 3. Institusi + peta proses | research-3 | `02-institutions/*`, `03-processes/process-maps.md` | ❌ gagal 402 sebelum tulis fail — research di-salvage ke `00-project/salvage/stream-3-research-notes.md`; akan dibina semula |
 | 4. Produk EA | research-4 | `04-products/*` | 🔄 berjalan |
 | 5. Statistik + demografi | research-5 | `05-statistics/*` | 🔄 berjalan |
-| 6. Kes rujukan | research-6 | `06-case-studies/*` | 🔄 berjalan |
+| 6. Kes rujukan | research-6 | `06-case-studies/*` | ✅ ditulis (final summary agent gagal 402; fail lengkap + Templat A–F) |
 | 7. Bottleneck + penyelesaian + penambahbaikan | research-7 | `07-limitations/*`, `08-improvements/*` | 🔄 berjalan |
 
 Fasa seterusnya: verifikasi fakta, klasifikasi akhir, `09-webapp-blueprint/agent-roles.md`, skill `estate-administration-malaysia`.
