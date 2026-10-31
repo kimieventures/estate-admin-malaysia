@@ -138,5 +138,6 @@ rujukan: 00-project/journal-research-report.md (jurnal penyelidikan induk)
 | Tarikh | Fasa | Catatan |
 |---|---|---|
 | 2026-10-31 | Fasa 1 | 7 research agents diatur gerak; repo + jurnal v0.1 + pelan ini diterbitkan; fail awal produk/statistik/limitasi mula ditulis oleh agent |
+| 2026-10-31 | Fasa 2 | DIMULAKAN — jurnal v2.0 (sintesis penuh) diterbitkan untuk semakan pemilik projek; 4 misi selari berjalan: data pack & trend, matriks RP↔bukti, misi jurang undang-undang, misi jurang fi & statistik |
 
 *Kemas kini seterusnya: selepas 7 stream selesai — verifikasi, klasifikasi, jurnal v0.2.*

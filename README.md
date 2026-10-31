@@ -2,7 +2,7 @@
 title: Repo Ilmu — Pentadbiran Pusaka / Estate Administration Malaysia
 version: 0.1 (skeleton)
 updated: 2026-10-31
-status: under-construction — 7 research agents berjalan
+status: fasa-1 SELESAI · fasa-2 berjalan (jurnal v2.0 menunggu semakan pemilik projek)
 maintainer: Zizi (Hermes agent, profile estateadministration-project)
 ---
 
@@ -53,7 +53,7 @@ Repo rujukan utama untuk projek **webapp/automation Pentadbiran Pusaka Malaysia*
 | 6. Kes rujukan | research-6 | `06-case-studies/*` | ✅ ditulis (final summary agent gagal 402; fail lengkap + Templat A–F) |
 | 7. Bottleneck + penyelesaian + penambahbaikan | research-7 | `07-limitations/*`, `08-improvements/*` | ✅ siap — 3 fail (Act A1643 RM5j, MyLAND, benchmark SG/UK) |
 
-Fasa seterusnya: verifikasi fakta, klasifikasi akhir, `09-webapp-blueprint/agent-roles.md`, skill `estate-administration-malaysia`.
+Fasa 1 SELESAI (2026-10-31): 22 fail ilmu, 839 sitasi, 7/7 stream, skill estate-administration-malaysia ✅, prototype dashboard ✅. **FASA 2 BERJALAN**: jurnal v2.0 siap (menunggu semakan pemilik projek) + 4 misi selari (data pack, matriks RP↔bukti, misi jurang undang-undang, misi jurang fi & statistik).
 
 ---
 
