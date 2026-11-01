@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EA-MY Webapp — Prototaip Review v1</title>
+<style>
+:root{
+  --bg:#0a0e17; --panel:#101725; --panel2:#0d1320; --border:#1e2a3d;
+  --ink:#dbe4f0; --dim:#8296b3; --faint:#5b6c85;
+  --amber:#f6b23c; --teal:#34d399; --red:#f87171; --blue:#5b8cff; --violet:#a78bfa;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Segoe UI",-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding:16px 18px 40px}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:10px}
+h1{font-size:19px;margin:0}
+.badge{font-size:10.5px;color:var(--amber);border:1px solid rgba(246,178,60,.45);border-radius:999px;padding:2px 9px}
+.sub{font-size:11.5px;color:var(--dim);width:100%}
+/* nav */
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 14px}
+nav button{background:var(--panel);border:1px solid var(--border);color:var(--dim);border-radius:8px;padding:7px 13px;font-size:12.5px;cursor:pointer;font-family:var(--sans)}
+nav button.on{color:var(--amber);border-color:var(--amber)}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.panel h3{margin:0 0 10px;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+label{display:block;font-size:11.5px;color:var(--dim);margin:8px 0 3px}
+input,select{background:var(--panel2);border:1px solid var(--border);color:var(--ink);border-radius:7px;padding:7px 10px;font-size:13px;font-family:var(--mono);width:100%}
+input[type=number]{-moz-appearance:textfield}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:6px 0}
+th{color:var(--faint);text-align:left;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase}
+td{padding:6px 8px;border-bottom:1px solid #16202f;color:var(--dim)}
+td b{color:var(--ink)}
+td.num,th.num{text-align:right;font-family:var(--mono)}
+.btn{background:var(--amber);color:#161207;border:0;border-radius:8px;font-weight:700;font-size:12.5px;padding:8px 16px;cursor:pointer}
+.btn.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--border);font-weight:400}
+.btn.red{background:transparent;color:var(--red);border:1px solid var(--red)}
+.btn.teal{background:var(--teal);color:#052015}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.chip{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:5px 11px;font-size:12px;color:var(--dim)}
+.chip b{color:var(--ink);font-family:var(--mono)}
+.chip.ok b{color:var(--teal)} .chip.amber b{color:var(--amber)} .chip.red b{color:var(--red)}
+.note{font-size:10.5px;color:var(--faint);line-height:1.6}
+.cite{font-size:10px;color:var(--faint);font-style:italic}
+.ok{color:var(--teal)} .bad{color:var(--red)} .warn{color:var(--amber)}
+.gate{border:1px solid var(--border);border-radius:10px;padding:10px 13px;margin-bottom:8px;background:var(--panel2)}
+.gate.now{border-color:var(--amber)}
+.gate.done{opacity:.55}
+.gate .gname{font-weight:700;font-size:12.5px}
+.gate .gmeta{font-size:10.5px;color:var(--faint)}
+.gate .gagent{font-size:11.5px;color:var(--dim);margin-top:6px;padding:7px 10px;background:#0a0f1a;border-left:2px solid var(--blue);border-radius:0 6px 6px 0}
+.gate .gacts{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#toast{position:fixed;bottom:18px;right:18px;background:#1a2233;border:1px solid var(--amber);color:var(--ink);border-radius:10px;padding:10px 16px;font-size:12.5px;display:none;z-index:9;max-width:340px}
+.bar{height:7px;background:var(--panel2);border:1px solid var(--border);border-radius:99px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--amber);transition:width .3s}
+.pill{font-size:9.5px;border-radius:99px;padding:1px 8px;margin-left:6px;vertical-align:1px}
+.pill.t{background:rgba(52,211,153,.15);color:var(--teal)} .pill.b{background:rgba(246,178,60,.15);color:var(--amber)} .pill.r{background:rgba(248,113,113,.15);color:var(--red)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏛️ EA-MY — Webapp Pentadbiran Pusaka</h1>
+    <span class="badge">PROTOTIPE REVIEW v1 · data session sahaja</span>
+    <div class="sub">Model pasangan agent–human (11 pintu) · enjin faraid single-layer (munasakhat menyusul) · fi berasaskan jadual terverifikasi · audit hash-chain · konfigurasi radd/Baitulmal & panel pakar menunggu (D-5)</div>
+  </header>
+
+  <nav id="nav">
+    <button data-tab="home" class="on">📊 Status</button>
+    <button data-tab="intake">📝 Intake</button>
+    <button data-tab="kes">⚖️ Aliran Kes</button>
+    <button data-tab="faraid">🧮 Faraid</button>
+    <button data-tab="fi">💰 Anggaran Fi</button>
+    <button data-tab="norma">🛡️ Norma</button>
+    <button data-tab="audit">🔐 Audit</button>
+  </nav>
+
+  <!-- ═══════════ HOME ═══════════ -->
+  <div id="tab-home" class="tabsec">
+    <div class="panel"><h3>Panduan Review</h3>
+      <ol style="margin:0;padding-left:18px;color:var(--dim);font-size:12.5px;line-height:1.9">
+        <li><b>📝 Intake</b> — isi maklumat kes (contoh: Muslim, tiada wasiat, harta ≤RM5 juta) → sistem klasifikasi laluan bercitation + anggaran fi + senarai semak norma</li>
+        <li><b>⚖️ Aliran Kes</b> — lalui 11 pintu sebagai PASANGAN berperanan; cuba lulus pintu dengan peranan SALAH untuk nampak check & balance</li>
+        <li><b>🧮 Faraid</b> — uji enjin pecahan (presets bercitation; semak jumlah = 1)</li>
+        <li><b>💰 Fi</b> — estimator berasaskan jadual terverifikasi (P.U.(A) 194/2024, ARB rasmi, mahkamah)</li>
+        <li><b>🛡️ Norma</b> — cuba paksa norma PERLU SAHKAN (akan DISEKAT)</li>
+        <li><b>🔐 Audit</b> — rantaian hash session; cuba butang "Demo sabotaj" untuk nampak pengesanan pengubahan silam</li>
+      </ol>
+    </div>
+    <div class="panel"><h3>Status Sistem</h3><div class="chips" id="homeChips"></div>
+      <p class="note">Prototaip ini ialah <b>peringkat 2 urutan D-2</b> (dashboard + aliran + advisorial simulasi) berserta pandangan awal enjin logik (faraid + fi). Enjin munasakhat (berlapis), lejar kewangan, Q&A konsensus & backend bersepadah menyusul. Output agent di pintu ialah <b>simulasi bercitation</b> daripada repo ilmu (22+ fail, 1,277 sitasi).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ INTAKE ═══════════ -->
+  <div id="tab-intake" class="tabsec hidden">
+    <div class="panel"><h3>Maklumat Si Mati</h3>
+      <div class="row">
+        <div><label>Nama si mati</label><input id="inNama" value="Ahmad bin Ismail"></div>
+        <div><label>No. K/P si mati</label><input id="inIC" value="600101-14-5567"></div>
+        <div><label>Agama</label><select id="inAgama"><option>Islam</option><option>Bukan Islam</option></select></div>
+        <div><label>Wasiat?</label><select id="inWasiat"><option value="tiada">Tiada wasiat</option><option value="ada">Ada wasiat</option></select></div>
+      </div>
+    </div>
+    <div class="panel"><h3>Harta Pusaka</h3>
+      <div id="assetRows"></div>
+      <div style="margin-top:8px"><button class="btn ghost" onclick="addAssetRow()">+ Tambah harta</button></div>
+      <div class="chips"><div class="chip amber">Jumlah: <b id="inTotal">RM0</b></div><div class="chip">Harta alih: <b id="inAlih">RM0</b></div><div class="chip">Harta tak alih: <b id="inTakAlih">RM0</b></div></div>
+      <p class="note">Status nilai: <b>NILAI_RASMI</b> (penilaian rasmi/geran) · <b>ANGGARAN</b> (anggaran pasaran) · <b>TERJUAL</b> (harga jualan sebenar) — satu sumber nilai antara enjin fi & agihan (modul blueprint §B5).</p>
+    </div>
+    <div class="panel"><h3>Klasifikasi Laluan (A3 + A1/A2)</h3>
+      <button class="btn" onclick="classify()">Klasifikasikan Kes</button>
+      <div id="klasHasil" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ KES ═══════════ -->
+  <div id="tab-kes" class="tabsec hidden">
+    <div class="panel"><h3>Anda bertindak sebagai (pasangan human)</h3>
+      <div class="row" style="grid-template-columns:1fr 2fr">
+        <select id="rolePilih" onchange="auditLog('peranan.tukar',{peranan:this.value})">
+          <option value="petugas_kes">Petugas Kes</option>
+          <option value="pakar_syariah">Pakar Syariah</option>
+          <option value="peguam">Peguam</option>
+          <option value="penyelia_kanan">Penyelia Kanan</option>
+          <option value="pegawai_agensi">Pegawai Agensi (PPKP/JKSM)</option>
+          <option value="mahkamah">Mahkamah</option>
+          <option value="pemohon">Pemohon (waris)</option>
+        </select>
+        <div class="chips" id="kesChips" style="align-items:center"></div>
+      </div>
+      <div class="bar"><i id="kesBar" style="width:0%"></i></div>
+      <p class="note" id="kesNull">Belum ada kes — buka kes di tab <b>📝 Intake</b> dahulu (klik "Buka Kes" selepas klasifikasi).</p>
+    </div>
+    <div id="gatesWrap"></div>
+  </div>
+
+  <!-- ═══════════ FARAID ═══════════ -->
+  <div id="tab-faraid" class="tabsec hidden">
+    <div class="panel"><h3>Enjin Kiraan Faraid (deterministik — pecahan tepat)</h3>
+      <div class="row" style="grid-template-columns:repeat(4,1fr)">
+        <div><label>Balu</label><select id="fBalu"><option value="0">Tidak</option><option value="1">Ada</option></select></div>
+        <div><label>Suami</label><select id="fSuami"><option value="0">Tidak</option><option value="1">Ada</option></select></div>
+        <div><label>Anak lelaki</label><input id="fAL" type="number" min="0" value="1"></div>
+        <div><label>Anak perempuan</label><input id="fAP" type="number" min="0" value="1"></div>
+        <div><label>Ibu</label><select id="fIbu"><option value="0">Tidak</option><option value="1">Ada</option></select></div>
+        <div><label>Bapa</label><select id="fBapa"><option value="0">Tidak</option><option value="1">Ada</option></select></div>
+        <div><label>Nilai harta (RM)</label><input id="fNilai" type="number" min="0" value="1200000"></div>
+        <div style="align-self:end"><button class="btn teal" onclick="calcFaraid()">Kira</button></div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="preset(1)">Preset 1: balu + 1L 1P</button>
+        <button class="btn ghost" onclick="preset(2)">Preset 2: balu + 4P</button>
+        <button class="btn ghost" onclick="preset(3)">Preset 3: balu + ibu + bapa + 3 anak</button>
+        <button class="btn ghost" onclick="preset(4)">Preset 4: suami + 2P</button>
+        <button class="btn ghost" onclick="preset(5)">Preset 5: balu + bapa + 2L</button>
+      </div>
+      <div id="faraidHasil" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ FI ═══════════ -->
+  <div id="tab-fi" class="tabsec hidden">
+    <div class="panel"><h3>Anggaran Fi (jadual terverifikasi — label ANGGARAN)</h3>
+      <div class="row">
+        <div><label>Laluan</label><select id="fiLaluan"><option value="ppkp">Pusaka kecil PPKP (≤RM5j)</option><option value="arb">Pusaka ringkas ARB (harta alih ≤RM600k)</option><option value="mt">Mahkamah Tinggi (>RM5j / berwasiat kompleks)</option></select></div>
+        <div><label>Agama si mati</label><select id="fiAgama"><option>Islam</option><option>Bukan Islam</option></select></div>
+        <div><label>Nilai harta alih (RM)</label><input id="fiAlih" type="number" min="0" value="230000"></div>
+        <div><label>Nilai harta tak alih (RM)</label><input id="fiTakAlih" type="number" min="0" value="450000"></div>
+      </div>
+      <div style="margin-top:10px"><button class="btn" onclick="calcFi()">Kira Anggaran Fi</button></div>
+      <div id="fiHasil" style="margin-top:12px"></div>
+      <p class="note">Semua angka daripada jadual <b>terverifikasi</b> dalam repo (P.U.(A) 194/2024; FAQ rasmi amanahraya.my; Lampiran B1 KKM 2012 via P.U.(A) 67/2013; FAQ JKSM). Jadual fi sebenar ialah <b>data berversi bercitation</b> dalam sistem penuh — di sini diringkaskan. Yuran peguam TIDAK dikira (SRO 2023: "fair and reasonable" — laluan pengecualian berjustifikasi dalam sistem penuh).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ NORMA ═══════════ -->
+  <div id="tab-norma" class="tabsec hidden">
+    <div class="panel"><h3>Perpustakaan Norma (deontik)</h3>
+      <table id="normaTable"></table>
+      <p class="note">Prinsip: norma hanya aktif dalam produksi jika <b>TERVERIFIKASI</b>; item PERLU SAHKAN <b>DISEKAT</b> (tiada tindakan tanpa rujukan sahih). <button class="btn red" style="margin-left:8px" onclick="tryEnforceBlocked()">Cuba paksa norma PERLU SAHKAN (N-XX-TEST)</button></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ AUDIT ═══════════ -->
+  <div id="tab-audit" class="tabsec hidden">
+    <div class="panel"><h3>Audit Trail — rantaian hash (SHA-256, tamper-evident)</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="btn teal" onclick="renderAuditVerify()">Sahkan rantaian</button>
+        <button class="btn red" onclick="tamperDemo()">Demo sabotaj (ubah rekod lama)</button>
+      </div>
+      <div id="auditStatus"></div>
+      <table id="auditTable"></table>
+      <p class="note">Setiap rekod memuat hash rekod terdahulu — pengubahan silam dikesan. Dalam sistem penuh, audit juga memuat asas statutori setiap pintu + transkrip Q&A (rangka §6).</p>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+
+<script>
+"use strict";
+/* ═══════════════════════════════════════════════════════════
+   EA-MY Prototaip Review v1 — data session sahaja
+   Asas ilmu: repo estate-admin-malaysia (1,277 sitasi)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── SHA-256 (pelaksanaan kompak, UTF-8) ── */
+function sha256(str){
+  str = unescape(encodeURIComponent(str));
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  var mp=Math.pow,mw=mp(2,32),lp='length',i,j,res='';
+  var words=[],bits=str[lp]*8;
+  var h=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k[lp];
+  var comp={};
+  for(var cand=2;pc<64;cand++){
+    if(!comp[cand]){for(i=0;i<313;i+=cand)comp[i]=cand;
+      h[pc]=(mp(cand,.5)*mw)|0;k[pc++]=(mp(cand,1/3)*mw)|0;}
+  }
+  str+='\x80';
+  while(str[lp]%64-56)str+='\x00';
+  for(i=0;i<str[lp];i++){j=str.charCodeAt(i);if(j>>8)return null;
+    words[i>>2]|=j<<((3-i)%4<<3);}
+  words[words[lp]]=(bits/mw)|0;words[words[lp]]=bits;
+  for(j=0;j<words[lp];){
+    var w=words.slice(j,j+=16),oh=h.slice(0);
+    h=h.slice(0,8);
+    for(i=0;i<64;i++){
+      var w15=w[i-15],w2=w[i-2],a=h[0],e=h[4];
+      var t1=h[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&h[5])^(~e&h[6]))+k[i]
+        +(w[i]=i<16?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      var t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&h[1])^(a&h[2])^(h[1]&h[2]));
+      h=[(t1+t2)|0].concat(h);h[4]=(h[4]+t1)|0;
+    }
+    for(i=0;i<8;i++)h[i]=(h[i]+oh[i])|0;
+  }
+  for(i=0;i<8;i++)for(j=3;j+1;j--){var b=(h[i]>>j*8)&255;res+=((b<16)?0:'')+b.toString(16);}
+  return res;
+}
+
+/* ── Pecahan tepat (Fraction) ── */
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=b;b=a%b;a=t;}return a||1;}
+function Fr(n,d){if(d===undefined)d=1;if(d<0){n=-n;d=-d;}
+  var g=gcd(n,d);this.n=n/g;this.d=d/g;}
+Fr.prototype.add=function(o){return new Fr(this.n*o.d+o.n*this.d,this.d*o.d);};
+Fr.prototype.sub=function(o){return new Fr(this.n*o.d-o.n*this.d,this.d*o.d);};
+Fr.prototype.mul=function(o){return new Fr(this.n*o.n,this.d*o.d);};
+Fr.prototype.val=function(){return this.n/this.d;};
+Fr.prototype.str=function(){return this.d===1?String(this.n):this.n+"/"+this.d;};
+function fr(n,d){return new Fr(n,d);}
+function rm(x){return "RM"+Number(x).toLocaleString("en-MY",{maximumFractionDigits:0});}
+
+/* ── State ── */
+var app={ kes:null, stage:0, closed:false, audit:[], auditOk:true, faraid:null, klas:null };
+
+/* ── Audit hash-chain (session) ── */
+function auditLog(action,payload,stage,role,basis){
+  var prev=app.audit.length?app.audit[app.audit.length-1].hash:"GENESIS";
+  var body={ts:new Date().toISOString().slice(0,19),actor:"reviewer",role:role||"sistem",
+    action:action,stage:stage||null,basis:basis||null,payload:payload||{}};
+  var j=JSON.stringify(body);
+  var hash=sha256(prev+j);
+  app.audit.push(Object.assign({},body,{prev:prev,hash:hash,j:j}));
+  renderAudit();
+}
+function verifyChain(){
+  var prev="GENESIS";
+  for(var i=0;i<app.audit.length;i++){
+    var r=app.audit[i];
+    if(r.prev!==prev)return {ok:false,i:i};
+    var body={ts:r.ts,actor:r.actor,role:r.role,action:r.action,stage:r.stage,basis:r.basis,payload:r.payload};
+    if(sha256(prev+JSON.stringify(body))!==r.hash)return {ok:false,i:i};
+    prev=r.hash;
+  }
+  return {ok:true};
+}
+function tamperDemo(){
+  if(app.audit.length<2){toast("Buka kes & lalui sekurang-kurangnya 1 pintu dahulu untuk demo sabotaj.");return;}
+  app.audit[1].payload.sebab="DISABOTAJ-OLEH-PENYEBARANG";
+  app.auditOk=false;
+  toast("Rekod #1 diubah secara senyap… kini sahkan rantaian!","bad");
+  renderAudit();
+}
+function renderAuditVerify(){
+  var v=verifyChain();
+  var el=document.getElementById("auditStatus");
+  el.innerHTML=v.ok?"<span class='ok'>✔ RANTAIAN SAH — tiada pengubahan dikesan ("+app.audit.length+" rekod)</span>"
+    :"<span class='bad'>✘ PENGUBAHAN DIBESEKATKAN pada rekod #"+v.i+" — rantaian putus!</span>";
+}
+
+/* ── Toast ── */
+function toast(msg,k){
+  var t=document.getElementById("toast");
+  t.textContent=msg;
+  t.style.borderColor=k==="bad"?"var(--red)":"var(--amber)";
+  t.style.display="block";
+  clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none";},4200);
+}
+
+/* ── Intake / harta ── */
+function addAssetRow(){
+  var d=document.createElement("div");
+  d.className="row3";
+  d.style.marginBottom="8px";
+  d.innerHTML="<input class='aDesc' placeholder='cth. Rumah teres, Shah Alam' value=''>"+
+    "<input class='aVal' type='number' min='0' placeholder='Nilai (RM)' value='0'>"+
+    "<select class='aStat'><option>ANGGARAN</option><option>NILAI_RASMI</option><option>TERJUAL</option></select>";
+  document.getElementById("assetRows").appendChild(d);
+  d.querySelector(".aVal").addEventListener("input",updateTotals);
+  updateTotals();
+}
+function assets(){
+  return Array.prototype.map.call(document.querySelectorAll("#assetRows .row3"),function(r){
+    return {desc:r.querySelector(".aDesc").value||"(tanpa nama)",
+      val:parseFloat(r.querySelector(".aVal").value)||0,
+      stat:r.querySelector(".aStat").value};
+  });
+}
+function updateTotals(){
+  var a=assets(),tot=0;
+  a.forEach(function(x){tot+=x.val;});
+  document.getElementById("inTotal").textContent=rm(tot);
+}
+
+/* ── Klasifikasi laluan (A3) ── */
+function classify(){
+  var agama=document.getElementById("inAgama").value;
+  var wasiat=document.getElementById("inWasiat").value;
+  var a=assets();
+  var tot=a.reduce(function(s,x){return s+x.val;},0);
+  var alih=a.filter(function(x){return /alih/i.test(x.desc)||/kwsp|bank|saham|syer|kenderaan|takaful|insurans/i.test(x.desc);});
+  var semuaAlih=alih.length===a.length&&a.length>0;
+  var laluan,basis,catatan;
+  if(semuaAlih&&tot<=600000){laluan="Pusaka Ringkas ARB (harta alih ≤RM600,000)";basis="s.17(1) PTCA 1995 [Act 532]";}
+  else if(tot<=5000000){laluan="Pusaka Kecil PPKP/JKPTG (≤RM5 juta)";basis="Akta 98 + Act A1643 (kuat kuasa 15 Julai 2024)";}
+  else {laluan="Mahkamah Tinggi (>RM5 juta / kompleks)";basis="Probate & Administration Act 1959 [Act 97]";}
+  if(wasiat==="ada")catatan="Ada wasiat — jika bukan Islam: laksanakan ikut Wills Act 1959 (formaliti s.5); jika Islam: wasiat ≤1/3 harta bersih (N-W-01).";
+  else catatan="Tiada wasiat — intestate: "+(agama==="Islam"?"faraid (Al-Nisa' 11/12/176) — WAJIB sijil faraid (N-PK-01, s.50 Akta 505)":"Distribution Act 1958 (s.4/s.6(1))");
+  app.klas={agama:agama,wasiat:wasiat,total:tot,assets:a,laluan:laluan,basis:basis,catatan:catatan};
+  auditLog("intake.klasifikasi",{laluan:laluan,total:tot},"S1","agent-A3","klasifikasi laluan bercitation");
+  var h=document.getElementById("klasHasil");
+  h.innerHTML=
+    "<table><tr><th>Penentu</th><th>Keputusan</th></tr>"+
+    "<tr><td>Si mati</td><td><b>"+document.getElementById("inNama").value+"</b> ("+agama+")</td></tr>"+
+    "<tr><td>Jumlah harta</td><td><b>"+rm(tot)+"</b> ("+a.length+" aset)</td></tr>"+
+    "<tr><td>Laluan (A3)</td><td><b>"+laluan+"</b><div class='cite'>"+basis+"</div></td></tr>"+
+    "<tr><td>Kaedah pembahagian</td><td>"+catatan+"</td></tr>"+
+    "<tr><td>Norma pra-syarat</td><td>"+(agama==="Islam"?"N-PK-01 WAJIB sijil faraid SEBELUM pembahagian (s.50 Akta 505) <span class='pill t'>TERVERIFIKASI</span>":"Tiada norma syariat spesifik — Akta 300 s.6(1)")+"</td></tr></table>"+
+    "<button class='btn' style='margin-top:10px' onclick='bukaKes()'>Buka Kes → Aliran Pintu</button>";
+}
+
+/* ── Pintu (11 peringkat) ── */
+var GATES=[
+ {n:"S0",name:"Pendaftaran & Intake",gate:"PINTU 0 — identiti & dokumen asal disahkan",appr:["petugas_kes"],basis:"KYC; dokumen rasmi JPN",agent:function(){var nm="(belum)";if(app.klas){nm=document.getElementById("inNama").value;}return "A3: intake selesai. Dokumen asal dikesan (sijil kematian, MYKAD waris). Kes: <b>"+nm+"</b>.";}},
+ {n:"S1",name:"Verifikasi & Klasifikasi",gate:"PINTU 1 — laluan disepakati + anggaran fi dipaparkan",appr:["petugas_kes"],basis:"Act 532 s.17(1); Akta 98+A1643; Act 97; Akta 505 s.50",agent:function(){if(!app.klas){return "A3: belum diklasifikasi.";}return "A3/A1-A2: laluan <b>"+app.klas.laluan+"</b> · nilai "+rm(app.klas.total)+" · anggaran fi di tab Fi.";}},
+ {n:"S2",name:"Pengumpulan & Pengesahan Dokumen",gate:"PINTU 2 — dokumen 100% sahih & lengkap",appr:["petugas_kes"],basis:"Borang A; senarai semak JBG",agent:function(){return "A6/A7: senarai semak laluan dijana; "+(app.klas?app.klas.assets.length:0)+" aset disahkan nilai (label NILAI_RASMI/ANGGARAN).";}},
+ {n:"S3",name:"Analisis Kes & Nasihat",gate:"PINTU 3 — nasihat disemak pakar",appr:["peguam","pakar_syariah"],basis:"kes Latifah [2007] twin-track; fatwa MKI",agent:function(){if(app.klas&&app.klas.agama==="Islam"){return "A2: nasihat syariah — waris & faraid; risiko (Templat A–F); preseden: kes Latifah (hibah-pusaka, twin-track).";}return "A1: nasihat civil — Distribution Act 1958; formaliti wasiat (Wills Act s.5).";}},
+ {n:"S4",name:"Pengiraan Bahagian",gate:"PINTU 4 — kiraan disemak & tanpa bantahan",appr:["pakar_syariah","petugas_kes","peguam"],basis:"faraid (Al-Nisa' 11/12/176); Akta 300 s.6(1); Akta 303 s.122",agent:function(){if(!app.faraid){return "A5: kiraan belum dibuat — buka tab Faraid untuk jana pecahan.";}var r0=app.faraid.rows[0];return "A5: pecahan enjin — "+r0.who+" "+r0.fr.str()+" — sila semak jadual penuh di tab Faraid.";}},
+ {n:"S5",name:"Semakan Norma & Pematuhan",gate:"PINTU 5 — sifar pelanggaran norma kritikal",appr:["petugas_kes","penyelia_kanan"],basis:"Perpustakaan Norma bercitation",agent:function(){return "A8: 6 norma terverifikasi disemak — N-PK-01 ✓ (jika Islam), N-EX-01 ✓ hutang dahulu, N-PP-01 ✓ mesyuarat waris… tiada pelanggaran kritikal.";}},
+ {n:"S6",name:"Kertas Kes & Draf Keputusan",gate:"PINTU 6 — kertas kes dilulus",appr:["peguam","pakar_syariah","petugas_kes"],basis:"Act 97 s.30 (senarai aset); format agensi",agent:function(){return "A4/A7: kertas kes compiled — kronologi, inventori, kiraan, nasihat, pelan agihan, draf permohonan.";}},
+ {n:"S7",name:"Serahan & Pengesahan Agensi",gate:"PINTU 7 — KUASA LUARAN: perintah/geran diterbit",appr:["pegawai_agensi"],basis:"Akta 98 (perintah); Act 97 (geran); Akta 505 s.50 (sijil faraid)",agent:function(){return "A6: pakej diserah (MyLAND/kaunter). <b>Menunggu kuasa luaran</b> — agensi memproses & keluarkan perintah selepas mesyuarat waris."}},
+ {n:"S8",name:"Pelaksanaan & Pemantauan",gate:"PINTU 8 — setiap tugas pelaksanaan disahkan",appr:["petugas_kes"],basis:"NLC s.346 + Borang 14A; Akta 370 s.13; Akta KWSP s.54(1A)",agent:function(){return "A6/A7/A8: tugas pelaksanaan — pendaftaran tanah, tuntutan WTD, KWSP (penama=wasi, audit agihan faraid). Setiap tugas: sign-off manusia."}},
+ {n:"S9",name:"Laporan Akhir & Rumusan",gate:"PINTU 9 — MAHKAMAH: lejar seimbang & rumusan disahkan",appr:["mahkamah"],basis:"kuasa kehakiman (muktamad); duty to account",agent:function(){return "A4/A6: laporan penuh + rumusan compiled. Penyata Akaun Pusaka: <b>DITERIMA − DIBAYAR − DIAGIH = 0 ✓</b> (rekonsiliasi lulus). Menunggu pengesahan mahkamah."}},
+ {n:"S10",name:"Penyampaian & Penutupan",gate:"PINTU 10 — pemohon terima keputusan; kes ditutup",appr:["petugas_kes"],basis:"penyampaian & penutupan",agent:function(){return "A6: pakej penyampaian (salinan disahkan + jadual pengagihan + penyata akaun) sedia untuk pemohon.";}}
+];
+function bukaKes(){
+  if(!app.klas){toast("Klasifikasikan kes dahulu.");return;}
+  app.kes={id:"EA-2026-"+String(Math.floor(Math.random()*900)+100),stage:0,closed:false};
+  app.stage=0;app.closed=false;
+  auditLog("case.dibuka",{kes:app.kes.id,laluan:app.klas.laluan,total:app.klas.total},"S0","sistem");
+  document.getElementById("kesNull").classList.add("hidden");
+  renderGates();navTo("kes");
+  toast("Kes "+app.kes.id+" dibuka — lalui pintu sebagai pasangan betul!","");
+}
+function gateDecide(idx,decision){
+  var role=document.getElementById("rolePilih").value;
+  var g=GATES[idx];
+  if(app.closed){toast("Kes sudah DITUTUP.","bad");return;}
+  if(idx!==app.stage){toast("Ini bukan pintu semasa.","bad");return;}
+  if(g.appr.indexOf(role)===-1){
+    auditLog("percubaan.kuasa_salah",{pintu:g.n,peranan:role},g.n,role,"CHECK & BALANCE");
+    toast("✘ CHECK & BALANCE: peranan '"+role+"' TIADA kuasa pada "+g.n+". Kuasa: "+g.appr.join(", "),"bad");
+    return;
+  }
+  var sebab=prompt("Sebab kelulusan (direkod dalam audit):","");
+  if(sebab===null)return;
+  auditLog("gate."+decision,{pintu:g.n,sebab:sebab||"(tiada)"},g.n,role,g.basis);
+  if(decision==="LULUS"){
+    if(idx===10){app.closed=true;toast("🎉 KES SELESAI — keputusan disampaikan & kes ditutup!","");}
+    else{app.stage++;toast("✔ "+g.n+" LULUS oleh "+role+" → maju ke "+GATES[app.stage].n,"");}
+  } else {
+    toast("✘ "+g.n+" TOLAK oleh "+role+" — kes KEKAL pada peringkat ini (tiada lulus tiada maju).","bad");
+  }
+  renderGates();
+}
+function renderGates(){
+  var wrap=document.getElementById("gatesWrap");
+  var done=app.closed?11:app.stage;
+  document.getElementById("kesBar").style.width=(done/11*100)+"%";
+  document.getElementById("kesChips").innerHTML=
+    "<div class='chip "+(app.kes?"amber":"")+"'>Kes: <b>"+(app.kes?app.kes.id:"—")+"</b></div>"+
+    "<div class='chip'>Pintu: <b>"+(app.kes?(app.closed?"SELESAI":app.stage+"/11"):"—")+"</b></div>";
+  if(!app.kes)return;
+  var html="";
+  GATES.forEach(function(g,i){
+    var cls=i<app.stage?"done":(i===app.stage?"now":"");
+    html+="<div class='gate "+cls+"'>"+
+      "<div class='gname'>"+(i<app.stage||app.closed?"✔ ":"")+g.n+" · "+g.name+(i===app.stage&&!app.closed?" <span class='pill b'>SEKARANG</span>":"")+"</div>"+
+      "<div class='gmeta'>"+g.gate+" · Kuasa: <b>"+g.appr.join(" / ")+"</b> · Asas: "+g.basis+"</div>"+
+      "<div class='gagent'>🤖 "+g.agent()+"</div>";
+    if(i===app.stage&&!app.closed){
+      html+="<div class='gacts'><button class='btn teal' onclick='gateDecide("+i+",\"LULUS\")'>✍️ LULUS</button>"+
+        "<button class='btn red' onclick='gateDecide("+i+",\"TOLAK\")'>TOLAK</button></div>";
+    }
+    html+="</div>";
+  });
+  wrap.innerHTML=html;
+}
+
+/* ── Enjin Faraid (single-layer; subset terverifikasi) ── */
+function calcFaraidCore(balu,suami,al,ap,ibu,bapa){
+  var notes=[],rows=[];
+  var zuriat=(al+ap)>0;
+  var fixedTotal=fr(0);
+  function addFixed(who,share,basis){rows.push({who:who,fr:share,basis:basis,fixed:true});fixedTotal=fixedTotal.add(share);}
+  if(balu)addFixed("Balu",zuriat?fr(1,8):fr(1,4),"Al-Nisa' 12");
+  if(suami)addFixed("Suami",zuriat?fr(1,4):fr(1,2),"Al-Nisa' 12");
+  if(ibu)addFixed("Ibu",zuriat?fr(1,6):fr(1,3),"Al-Nisa' 11");
+  if(bapa&&zuriat)addFixed("Bapa",fr(1,6),"Al-Nisa' 11 (dengan zuriat)");
+  var anakShare=null;
+  if(!zuriat){
+    if(bapa)rows.push({who:"Bapa (asabah)",fr:null,basis:"asabah — baki",asabah:true});
+    if(ap===1&&!bapa)addFixed("Anak perempuan (1)",fr(1,2),"Al-Nisa' 11");
+    else if(ap>=2&&!bapa)addFixed("Anak perempuan ("+ap+")",fr(2,3),"Al-Nisa' 11");
+  } else {
+    if(al===0&&ap===1)addFixed("Anak perempuan (1)",fr(1,2),"Al-Nisa' 11");
+    else if(al===0&&ap>=2)addFixed("Anak perempuan ("+ap+")",fr(2,3),"Al-Nisa' 11");
+    rows.push({who:"Anak (asabah 2:1)",fr:null,basis:"asabah — baki · hadis Bukhari",asabah:true,al:al,ap:ap});
+  }
+  /* asabah residue */
+  var residue=fr(1).sub(fixedTotal);
+  rows.forEach(function(r){
+    if(r.asabah){
+      if(residue.val()>0){
+        if(r.who.indexOf("Anak")===0){
+          var unit=residue.mul(fr(1,(r.al*2+r.ap)));
+          if(r.al>0){var lt=unit.mul(fr(2*r.al));rows.push({who:"Anak lelaki ×"+r.al+" ("+lt.mul(fr(1,r.al)).str()+" setiap satu)",fr:lt,basis:"asabah 2:1",asabah:true});}
+          if(r.ap>0){var pt2=unit.mul(fr(r.ap));rows.push({who:"Anak perempuan ×"+r.ap+" ("+unit.str()+" setiap satu)",fr:pt2,basis:"asabah 2:1",asabah:true});}
+        } else {r.fr=residue;}
+      } else {r.fr=fr(0);}
+    }
+  });
+  rows=rows.filter(function(r){return !(r.asabah&&r.who.indexOf("Anak (asabah")===0);});
+  /* 'aul */
+  var sum=fr(0);rows.forEach(function(r){sum=sum.add(r.fr);});
+  if(sum.val()>1){
+    notes.push("'AUL: jumlah pecahan >1 — disesuaikan berkadar ("+sum.str()+" → 1). Kaedah terverifikasi (6→10, 12→17, 24→27).");
+    rows.forEach(function(r){r.fr=r.fr.mul(fr(1)).mul(fr(sum.d,sum.n));});
+  }
+  /* radd / baki */
+  sum=fr(0);rows.forEach(function(r){sum=sum.add(r.fr);});
+  var baki=fr(1).sub(sum);
+  if(baki.val()>0.0000001){
+    notes.push("Baki "+baki.str()+" selepas fardu & asabah — TIADA penerima terverifikasi dalam subset ini. Opsyen: (a) RADD (fatwa mutaakhirin — menunggu konfigurasi panel D-5) · (b) BAITULMAL (amalan MAIS — dilabelkan). Keputusan konfigurasi negeri belum dibuat — paparan jujur.");
+  }
+  return {rows:rows,notes:notes,sum:sum};
+}
+function preset(n){
+  var set={1:[1,0,1,1,0,0],2:[1,0,0,4,0,0],3:[1,0,1,2,1,1],4:[0,1,0,2,0,0],5:[1,0,2,0,0,1]}[n];
+  document.getElementById("fBalu").value=set[0];
+  document.getElementById("fSuami").value=set[1];
+  document.getElementById("fAL").value=set[2];
+  document.getElementById("fAP").value=set[3];
+  document.getElementById("fIbu").value=set[4];
+  document.getElementById("fBapa").value=set[5];
+  calcFaraid();
+}
+function calcFaraid(){
+  var balu=+document.getElementById("fBalu").value,
+      suami=+document.getElementById("fSuami").value,
+      al=+document.getElementById("fAL").value||0,
+      ap=+document.getElementById("fAP").value||0,
+      ibu=+document.getElementById("fIbu").value,
+      bapa=+document.getElementById("fBapa").value,
+      nilai=+document.getElementById("fNilai").value||0;
+  if(balu&&suami){toast("Pilih salah satu: balu ATAU suami.","bad");return;}
+  var r=calcFaraidCore(balu,suami,al,ap,ibu,bapa);
+  app.faraid=r;
+  auditLog("faraid.kira",{balu:balu,suami:suami,al:al,ap:ap,ibu:ibu,bapa:bapa,jumlah:r.sum.str()},"S4","agent-A5","faraid deterministik");
+  var h="<table><tr><th>Penerima</th><th class='num'>Pecahan</th><th class='num'>% </th><th class='num'>Nilai (RM)</th><th>Asas</th></tr>";
+  var sumCk=fr(0);
+  r.rows.forEach(function(x){sumCk=sumCk.add(x.fr);
+    h+="<tr><td><b>"+x.who+"</b></td><td class='num'>"+x.fr.str()+"</td><td class='num'>"+(x.fr.val()*100).toFixed(2)+"%</td><td class='num'>"+(x.fr.val()*nilai).toLocaleString("en-MY",{maximumFractionDigits:0})+"</td><td>"+x.basis+"</td></tr>";});
+  h+="<tr><td><b>JUMLAH</b></td><td class='num'><b>"+sumCk.str()+"</b></td><td colspan='3'>"+(Math.abs(sumCk.val()-1)<0.000001?"<span class='ok'>✔ jumlah tepat = 1</span>":"<span class='warn'>jumlah "+sumCk.str()+"</span>")+"</td></tr></table>";
+  r.notes.forEach(function(n){h+="<p class='note'>⚠ "+n+"</p>";});
+  h+="<p class='note'>Enjin single-layer — munasakhat (faraid berlapis, kes AL-KAFI #1021 8 lapisan) menyusul selepas konfigurasi output JKSM (JQ-01). Waris khas (anak luar nikah, mualaf, al-haml, mafqud) tersedia dalam modul penuh — subset terverifikasi ini sahaja dipaparkan.</p>";
+  document.getElementById("faraidHasil").innerHTML=h;
+}
+
+/* ── Enjin Fi ── */
+function arbScale(v){ /* 5%→1% berperingkat — FAQ rasmi amanahraya.my */
+  var bands=[[25000,0.05],[225000,0.04],[250000,0.03],[500000,0.02]];
+  var fee=0,left=v;
+  for(var i=0;i<bands.length;i++){
+    var amt=Math.min(left,bands[i][0]);
+    fee+=amt*bands[i][1];left-=amt;
+  }
+  fee+=Math.max(left,0)*0.01;
+  return fee;
+}
+function calcFi(){
+  var laluan=document.getElementById("fiLaluan").value;
+  var agama=document.getElementById("fiAgama").value;
+  var alih=+document.getElementById("fiAlih").value||0;
+  var tak=+document.getElementById("fiTakAlih").value||0;
+  var tot=alih+tak,items=[];
+  if(laluan==="ppkp"){
+    items.push(["Fi permohonan perintah pusaka kecil",50,"P.U.(A) 194/2024 — RM50 permohonan"]);
+    items.push(["Fi perintah — harta alih ("+rm(alih)+")",alih*0.002,"0.2% harta alih — P.U.(A) 194/2024"]);
+    items.push(["Fi perintah — harta tak alih ("+rm(tak)+")",tak*0.003,"0.3% harta tak alih — P.U.(A) 194/2024"]);
+    if(agama==="Islam")items.push(["Sijil faraid (anggaran)",30,"FAQ JKSM RM30/RM20/RM10 ikut nilai — jadual negeri PERLU SAHKAN"]);
+  } else if(laluan==="arb"){
+    items.push(["Fi pentadbiran pusaka ARB (skala berperingkat)",arbScale(tot),"5%/4%/3%/2%/1% — FAQ rasmi amanahraya.my (disahkan misi jurang F2)"]);
+    items.push(["Deposit (kenderaan/Fast Lane)",50,"FAQ ARB"]);
+  } else {
+    items.push(["Pemfailan petisyen probat/SKM",160,"Lampiran B1 KKM 2012 via P.U.(A) 67/2013"]);
+    items.push(["Senarai aset/liabiliti",16,"Butiran 62 — Kod 31/32"]);
+    if(agama==="Islam")items.push(["Sijil faraid (anggaran)",30,"FAQ JKSM"]);
+  }
+  var total=0,h="<table><tr><th>Item</th><th class='num'>Anggaran (RM)</th><th>Asas jadual</th></tr>";
+  items.forEach(function(x){total+=x[1];
+    h+="<tr><td>"+x[0]+"</td><td class='num'>"+x[1].toLocaleString("en-MY",{maximumFractionDigits:0})+"</td><td class='cite'>"+x[2]+"</td></tr>";});
+  h+="<tr><td><b>JUMLAH ANGGARAN</b></td><td class='num'><b>"+total.toLocaleString("en-MY",{maximumFractionDigits:0})+"</b></td><td></td></tr></table>";
+  h+="<p class='note'>Label <b>ANGGARAN</b> — nilai ikut kategori harta; fi muktamad ikut nilai RASMI semasa serahan (tarikh peristiwa menentukan versi jadual). Yuran peguam TIDAK termasuk (SRO 2023 — 'fair and reasonable', laluan pengecualian berjustifikasi).</p>";
+  auditLog("fi.anggar",{laluan:laluan,total:total},"S1","agent-A5fi","jadual fi terverifikasi");
+  document.getElementById("fiHasil").innerHTML=h;
+}
+
+/* ── Norma ── */
+var NORMS=[
+ ["N-PK-01","WAJIB","Sijil faraid sebelum pembahagian pusaka kecil Muslim","s.50 Akta 505 + amalan PPKP","t"],
+ ["N-W-01","DILARANG","Wasiat Muslim >1/3 harta bersih tanpa persetujuan waris","Enakmen Wasiat Selangor 1999 s.26; had 1/3","t"],
+ ["N-PA-01","WAJIB","Geran probat/SKM sebelum pengambilan harta","Act 97","t"],
+ ["N-EX-01","DILARANG","Bahagian harta sebelum hutang & perbelanjaan dilangsaikan","urutan piawai pentadbiran","t"],
+ ["N-WC-01","WAJIB","Wasiat civil: bertulis + 2 saksi serentak","Wills Act 1959 s.5","t"],
+ ["N-PP-01","WAJIB","Mesyuarat waris sebelum perintah pembahagian","proses Akta 98","t"],
+ ["N-XX-TEST","WAJIB","(contoh) norma belum disahkan","asas belum disahkan","b"]
+];
+function renderNorma(){
+  var h="<table><tr><th>ID</th><th>Modaliti</th><th>Norma</th><th>Asas statutori</th><th>Status</th></tr>";
+  NORMS.forEach(function(n){
+    h+="<tr><td><b>"+n[0]+"</b></td><td>"+n[1]+"</td><td>"+n[2]+"</td><td class='cite'>"+n[3]+"</td>"+
+       "<td>"+(n[4]==="t"?"<span class='pill t'>TERVERIFIKASI</span>":"<span class='pill r'>PERLU SAHKAN</span>")+"</td></tr>";
+  });
+  document.getElementById("normaTable").innerHTML=h+"</table>";
+}
+function tryEnforceBlocked(){
+  auditLog("norma.percubaan_paksa",{norma:"N-XX-TEST"},"S5","reviewer","sekatan PERLU SAHKAN");
+  toast("✘ DISEKAT: N-XX-01 status PERLU SAHKAN — tiada tindakan tanpa rujukan sahih (NormNotVerifiedError).","bad");
+}
+
+/* ── Audit render ── */
+function renderAudit(){
+  var t=document.getElementById("auditTable");
+  var h="<tr><th>#</th><th>Masa</th><th>Peranan</th><th>Tindakan</th><th>Pintu</th><th>Hash</th></tr>";
+  app.audit.forEach(function(r,i){
+    h+="<tr><td>"+i+"</td><td>"+r.ts.slice(11,19)+"</td><td>"+r.role+"</td><td>"+r.action+"</td><td>"+(r.stage||"-")+"</td><td>"+r.hash.slice(0,10)+"…</td></tr>";
+  });
+  t.innerHTML=h+"</table>";
+  document.getElementById("auditStatus").innerHTML=app.auditOk?"":"";
+}
+
+/* ── Home chips ── */
+function renderHome(){
+  document.getElementById("homeChips").innerHTML=
+   "<div class='chip'>Repo ilmu: <b>22 fail</b></div><div class='chip'>Sitasi: <b>1,277</b></div>"+
+   "<div class='chip ok'>Norma terverifikasi: <b>6</b></div><div class='chip amber'>Kertas soalan agensi: <b>33</b></div>"+
+   "<div class='chip'>Kes (session): <b>"+(app.kes?app.kes.id:"—")+"</b></div><div class='chip'>Rekod audit: <b>"+app.audit.length+"</b></div>";
+}
+
+/* ── Nav ── */
+function navTo(id){
+  document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.tab===id);});
+  document.querySelectorAll(".tabsec").forEach(function(s){s.classList.toggle("hidden",s.id!=="tab-"+id);});
+  if(id==="audit")renderAuditVerify();
+}
+document.querySelectorAll("nav button").forEach(function(b){
+  b.addEventListener("click",function(){navTo(b.dataset.tab);});
+});
+
+/* ── Init ── */
+addAssetRow();addAssetRow();
+document.querySelector("#assetRows .row3 .aDesc").value="Rumah teres, Shah Alam";
+document.querySelector("#assetRows .row3 .aVal").value=450000;
+var rows=document.querySelectorAll("#assetRows .row3");
+rows[1].querySelector(".aDesc").value="Simpanan KWSP";
+rows[1].querySelector(".aVal").value=230000;
+updateTotals();
+renderNorma();renderAudit();renderHome();renderGates();
+auditLog("session.buka",{nota:"prototaip review v1"});
+</script>
+</body>
+</html>
