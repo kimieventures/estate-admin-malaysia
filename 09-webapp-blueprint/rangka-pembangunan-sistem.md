@@ -34,6 +34,8 @@ Sistem web + mobile yang melaksanakan **Model Pasangan Agent–Human (11 peringk
   ⑨ Modul Audit (event store append-only, hash-chain)
   ⑩ Modul Pentadbiran (admin)
   ⑪ Modul Sandaran/DR (scheduler + runbook)
+  ⑫ Enjin Fi & Kewangan (jadual fi berversi + lejar pusaka + rekonsiliasi — modul-pematuhan-enjin-fi.md)
+  ⑬ Daftar Pematuhan & Laporan Audit (compliance register + audit pack per kes)
         ↓
 [ DATA ]
   PostgreSQL (kes, pengguna, norma) + pgvector (RAG repo ilmu)
@@ -69,6 +71,10 @@ Sistem web + mobile yang melaksanakan **Model Pasangan Agent–Human (11 peringk
 ### 3.4 Penyelia Kanan — Web
 - Spot-check rawak pintu (QC), dashboard mutu (kadar tolak, punca, tempoh per pintu)
 - Pemutus kebuntuan (eskalasi tingkat 1), panel norma (pentauliahan norma baharu + citation gate)
+
+### 3.4b Pegawai Kewangan / Akaun — Web
+- Semak bil (enjin fi), lejar pusaka (DITERIMA/DIBAYAR/DIAGIH) & rekonsiliasi pra-pintu S9
+- Q&A konsensus bagi pengecualian fi (Exception Register) — rujuk modul-pematuhan-enjin-fi.md Bahagian B
 
 ### 3.5 Admin Sistem — Web
 - Pengurusan pengguna & peranan (RBAC), audit log pengguna
@@ -155,6 +161,7 @@ Anggaran keseluruhan: ± 11–15 minggu pembangunan aktif (agent-assisted, 1-2 p
 - Tempoh per pintu diukur & dilapor (baseline metrik — cadangan dari cross-examination gaps)
 - Audit trail: lulus ujian tamper (ubah rekod silam → dikesan)
 - DR: restore drill lulus dalam RTO; backup verify setiap bulan
+- Pematuhan & fi: 0 tindakan tanpa asas statutori; 0 bil berasaskan jadual PERLU SAHKAN; rekonsiliasi lulus 100% kes (rujuk modul-pematuhan-enjin-fi.md §A7/§B9)
 
 ## 11. Had & Gaps
 
