@@ -36,6 +36,7 @@ Sistem web + mobile yang melaksanakan **Model Pasangan Agent–Human (11 peringk
   ⑪ Modul Sandaran/DR (scheduler + runbook)
   ⑫ Enjin Fi & Kewangan (jadual fi berversi + lejar pusaka + rekonsiliasi — modul-pematuhan-enjin-fi.md)
   ⑬ Daftar Pematuhan & Laporan Audit (compliance register + audit pack per kes)
+  ⑭ Enjin Pengagihan Aset (alokasi in-kind/jual/buyout/partition + Penyata Agihan berasaskan nilai — modul-pengagihan-aset.md)
         ↓
 [ DATA ]
   PostgreSQL (kes, pengguna, norma) + pgvector (RAG repo ilmu)
