@@ -72,7 +72,25 @@ STEP 5 — PENYATA AGIHAN: matriks penuh (aset | waris | pecahan | nilai | kaeda
 | Proses kita → IFP/CFP | Adakah setiap langkah agihan kita konsisten dengan langkah dalam framework profesional? | Jadual silang (research-ifp-cfp.md → integrate sini) |
 | IFP/CFP → kita | Adakah komponen profesional yang kita tertinggal? (cth. semakan pasca-agihan/post-distribution review, pelan kontingensi) | Senarai cadangan (proposal — menunggu panel) |
 
-*(Hasil research framework IFP/CFP bercitation sedang dikumpul dalam `research-ifp-cfp.md` oleh subagent — seksyen ini akan diisi dengan jadual silang penuh + senarai komponen DISAHKAN apabila siap; mana-mana komponen tanpa sandaran framework & statutori kekal berstatus cadangan.)*
+**✅ KEPUTUSAN CROSS-CHECK (selesai 2026-11-01 — `research-ifp-cfp.md`, 20 sumber bercitation):**
+
+**Komponen prosedur kita yang DISAHKAN silang oleh framework profesional (lapisan pengesahan tercapai):**
+1. Inventori aset & liabiliti dahulu (IFP EGADIM-G · CFP Step 2 · ARB · UiTM) — selari STEP 1 enjin alokasi
+2. Penjelasan hutang sebelum pengagihan (UTM/UiTM · CFP Topic 16 · PAA) — selari N-EX-01
+3. **Turutan fiqh pengagihan**: asing hibah/amanah/waqf → kebumian → hutang → wasiat ≤1/3 → sepencarian → faraid (UTM 6 komponen · UiTM 5 langkah) — mengesahkan turutan kiraan A5
+4. Sijil faraid prasyarat saluran Muslim (IIUM · Akta 505 s.50) — selari N-PK-01
+5. Instrumen semasa hidup menentukan saluran (3 kaedah Kamarudin · ARB · CFP Topics 13–14) — selari Lapis 0
+6. Tugas pentadbir: kutip–jelaskan–agih–pindah (CFP Topic 16 = ARB = PAA)
+7. Penama Muslim = wasi (fatwa MKI · modul takaful IFP sejajar) — selari laluan (e)
+8. Kelengkapan dokumen = faktor kelancaran utama — selari pintu S2
+9. Proses 6-langkah EGADIM (IFP, adaptasi FPSB) boleh jadi pembalut (wrapper) modul perancangan pra-kematian webapp
+
+**Komponen yang kekal berasaskan statutori sahaja** (IFP/CFP tidak liputi; asas kuasa tidak berubah): dokumen & fi setiap saluran (Borang A/MyLAND, RM160/RM16, bon s.35 PAA, eGUMIS, NLC s.346, s.109 CA 2016, fi ARB PTCA); ambang kuasa (RM5j A1643; RM600k s.17(1)); dwi-jurisdiction *Latifah* twin-track; tempoh statutori. *Nota penting: kertas akademik IIUM (2020) masih guna ambang RM600,000 usang (kini RM5 juta) — membuktikan statut mesti kekal rujukan utama; framework hanya lapisan pengesahan.*
+
+**Komponen BERBEZA (dinyatakan jujur):** orientasi masa — IFP/CFP = perancangan **pra-kematian** advisory; sistem kita = pentadbiran **pasca-kematian**. Faraid: IFP pegang mandat fiqh; PPKP benar muafakat — sistem ikut perintah agensi.
+
+**Komponen jurang IFP/CFP ada yang kita belum ada — status CADANGAN (menunggu panel, bukan tindakan):**
+(a) **langkah tuntutan sepencarian eksplisit** dalam aliran pintu (ada dalam repo ilmu — syariah-law & kes S4 cross-examination — cadangan: jadikan sub-langkah S3 wajib bagi kes Muslim berpasangan); (b) **zakat/hutang akhirat** sebagai kategori lejar pusaka sebelum faraid (cadangan kemas kini `modul-pematuhan-enjin-fi.md`); (c) **loop monitoring pasca-agihan** (EGADIM-M — selari pintu S9/S10; cadangan peringkat semakan tertutup); (d) POA/perancangan kekurangan upaya — nyatakan batasan produk; (e) business succession — nota keupayaan; (f) kedalaman instrumen trust (waris bawah umur); (g) **pra-skrin likuiditi estet** (adakah tunai cukup untuk hutang & belanja? — cadangan modul nasihat); (h) kod etika FPAM/IBFIM sebagai benchmark tatakelola model pasangan.
 
 ## 5. Kaitan dengan Model Pasangan & Modul Sedia Ada
 
@@ -98,6 +116,6 @@ Setiap baris Penyata Agihan membawa: `aset_id | waris | pecahan (sumber: perinta
 3. **Tarikh nilai** (valuation date) untuk agihan — tarikh kematian vs tarikh agihan: amalan perlu dirujuk (perbezaan fi/kaedah penilaian) — flag untuk panel; jurnal tidak menetapkan sendiri.
 4. Dasar pembundaran baki — dicadangkan, menunggu kelulusan panel (Pintu S6 memaparkan dasar aktif).
 5. Skim agihan aset perniagaan (penerusan/penswastaan) tiada skema automatik — wajib pintu kelulusan + rujukan undang-undang perniagaan (luar skop repo semasa).
-6. Jadual silang IFP/CFP penuh — menunggu research-ifp-cfp.md siap (subagent berjalan).
+6. ~~Jadual silang IFP/CFP~~ ✅ SELESAI — `research-ifp-cfp.md` (20 sumber): 9 komponen disahkan silang; komponen statutori-sahaja dikenal pasti; 8 komponen jurang dicatat sebagai CADANGAN (a)–(h) di §4 — menunggu kelulusan panel sebelum dilaksana.
 
 *Disediakan Zizi, 2026-11-01 — melengkapi keluarga modul: konsep-model (pintu) · enjin fi & kewangan (nilai+lejar) · pematuhan & audit (rujukan 3-lapis). Semua angka/seksyen diwarisi daripada fail repo bercitation.*
