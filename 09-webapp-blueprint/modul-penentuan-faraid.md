@@ -3,7 +3,7 @@ title: "Modul Penentuan Faraid — Enjin Faraid Berlapis & Pengiraan Pecahan Det
 project: EA-MY (Fasa 3 blueprint)
 version: 1.0
 updated: 2026-11-01
-status: draft — research peraturan berlapis berjalan (research-faraid-berlapis.md)
+status: peraturan teknikal DIINTEGRASIKAN (01-legal-framework/research-faraid-berlapis.md — munasakhat, musyahamah MKI-83, mahjub, 'aul/radd, wasiat wajibah 5 negeri, waris khas)
 kategori: 09-webapp-blueprint
 rujukan: modul-pengagihan-aset.md (enjin agih) · modul-pematuhan-enjin-fi.md (nilai/lejar) · 01-legal-framework/syariah-law.md §2 (faraid asas) · research-ifp-cfp.md (turutan fiqh disahkan)
 ---
@@ -20,13 +20,13 @@ Deterministik (bukan LLM untuk kiraan) · rujukan 3-lapis (statutori/autoriti hu
 
 | # | Isu | Status bukti | Kesan |
 |---|---|---|---|
-| F1 | **Kematian berlapis** — waris mati selepas si mati sebelum pembahagian; bahagiannya menimbulkan kiraan faraid kedua (kadang ketiga) | ✅ punca rasmi kelewatan (Bernama 29-01-2026, dalam repo); peraturan teknikal → `research-faraid-berlapis.md` 🔄 | Kiraan bertingkat manual; dokumen sijil tambahan; tempoh berganda |
+| F1 | **Kematian berlapis = MUNASAKHAT** (✅ terverifikasi: MAIS E-FARAID §8) — bahagian waris yang mati selepas si mati sebelum pembahagian VESTED lalu diwarisi warisnya; **tiada had lapisan** — kes rujukan AL-KAFI #1021 (Pejabat Mufti WP): **8 lapisan, jami'ah 422,400, 19 penerima akhir** | ✅ | Kiraan bertingkat manual — jami'ah ratus ribu mustahil dikira tangan tanpa ralat |
 | F2 | **Verifikasi silsilah waris manual** — pengenalan waris bergantung dokumen (sijil kelahiran/perkahwinan) & kenyataan; tidak berstruktur | amalan PPKP/JKSM (repo: process-maps) | Semakan berulang; ralat penama waris |
-| F3 | **Kiraan pecahan kompleks** — 'aul (jumlah > 1), radd (baki tanpa asabah), asal masalah (KPK), nisbah 2:1 | kaedah dalam repo (syariah-law §2.3); mekanik penuh 🔄 research | Ralat manual; tidak konsisten antara pengira |
-| F4 | **Waris khas** — anak luar nikah (melalui ibu), waris berbeza agama (tidak mewarisi harta orang Islam — *MAIWP v Lim Ee Seng*, Re Timah), mualaf, al-haml, waris hilang | ✅ sebahagian dalam repo (kes + syariah-law) | Pertikaian & kelewatan penetapan |
-| F5 | **Pengecualian waris (mahjub)** — cth. keturunan mengecualikan adik-beradik | 🔄 research (senarai penuh belum dalam repo) | Waris tersenarai salah → sijil ditolak/ulang |
-| F6 | **Wasiat wajibah** (cucu yatim) — amalan berbeza negeri | 🔄 research | Ketaksaan antara negeri |
-| F7 | **Sistem e-Faraid JKSM** dilaporkan tidak dapat dicapai (Sep 2026, sumber ketiga — PERLU SAHKAN); kalkulator sedia ada (MyLAND dsb.) mungkin single-layer sahaja | 🔄 research | Tiada alat piawai sokong kes berlapis — jurang kejuruteraan kita isi |
+| F3 | **Kiraan pecahan** — ✅ mekanik terverifikasi: 'aul (6→10, 12→17, 24→27), radd, **7 asal masalah** (2,3,4,6,8,12,24; +18/36 datuk), jami'ah melalui **3 hubungan** (inqisam/tamathul, tawafuq, tabayun) — contoh penuh MAIS, boleh dikod terus. ⚠️ amalan MAIS: baki ke **Baitulmal** (bukan radd mutaakhirin) → konfigurasi negeri = keputusan panel | ✅ mekanik / ⚠️ konfigurasi | Ralat manual; kitab & kalkulator berbeza amalan |
+| F4 | **Waris khas** — ✅ terverifikasi: anak luar nikah mewarisi **melalui ibu sahaja** (AL-KAFI #2002); mualaf/berbeza agama tidak saling mewarisi & tidak menghijab (Re Emily 1996, Re Zarina 2002, Re Zaiton 1989 → Baitulmal); al-haml 2 syarat + ihtiyat (AL-KAFI #729); **mafqud**: dikira hidup pada hartanya, mati pada harta orang lain — **bahagian DITAHAN** (Irsyad 341) | ✅ | Pertikaian & kelewatan penetapan |
+| F5 | **Pengecualian waris (mahjub/hijab)** — ✅ senarai penuh bercitation (kitab Syafi'i): 2 jenis (bi al-wasf / bi al-syakhs), hirman vs nuqsan, **6 waris tidak pernah terdinding hirman** (bapa, ibu, anak lelaki, anak perempuan, suami, isteri); cucu terdinding oleh anak lelaki (ijmak); saudara seibu pengecualian dsb. | ✅ | Waris tersenarai salah → sijil ditolak/ulang |
+| F6 | **Wasiat wajibah** — ✅ DIENAKMENKAN di 5 negeri disahkan: Selangor (1999, p.2016), Pahang (2017), Perak (2023), Melaka (2005), N. Sembilan (2004); asas MKI Ke-83 (2008) + siyasah syar'iyyah (kes Akmar lwn ARB, MTS Selangor 2012); liputan cucu BERBEZA antara negeri | ✅ 5 negeri / ⚠️ negeri lain | Ketaksaan antara negeri — konfigurasi negeri wajib |
+| F7 | **e-Faraid JKSM tersahan secara teknikal** — server HIDUP tetapi sijil TLS `*.jwp.gov.my` tidak sepadan hos → pelayar sekat capaian (disemak langsung 2026-11-01); **MyLAND JKPTG single-layer TANPA medan munasakhat** (disemak terus); K-Faraid MAIS pendidikan sahaja; sokongan berlapis hanya kalkulator swasta BERBAYAR | ✅ disemak sendiri | Jurang kejuruteraan TERBUKTI — enjin kita yang isi |
 | F8 | Interaksi lapisan harta: sepencarian/hibah/penama/wasiat mesti diselesaikan DALAM TURUTAN BETUL sebelum faraid | ✅ turutan DISAHKAN IFP/CFP (research-ifp-cfp.md) | Agihan awal salah (kes Divyyaa — penama KWSP bukan pusaka wasiat) |
 
 ## 2. Enjin Penentuan Faraid — 5 Lapisan Penyelesaian
@@ -46,12 +46,16 @@ LAPIS 3 — ENJIN PECAHAN (fraction arithmetic — KPK/asal masalah, 'aul, radd)
   Aritmetik nombor munasabah TEPAT (tiada floating point); asal masalah dikira; penyesuaian 'aul/radd
   Output: jadual pecahan peringkat 1 + justifikasi langkah demi langkah (boleh diaudit)
 
-LAPIS 4 — ALGORITMA FARAID BERLAPIS (nested faraid — TERAS modul ini)
+LAPIS 4 — ALGORITMA MUNASAKHAT (faraid berlapis — TERAS modul; ✅ peraturan terverifikasi)
   Trigger: waris (peringkat-n) mati SELEPAS si mati & SEBELUM pembahagian selesai (tarikh dari Lapis 1)
-  Kaedah: bahagian vested waris itu menjadi "pusaka kedua" → Lapis 2–3 DIULANG utk warisNYA (peringkat n+1)
-  Rekursi terkawal (maks lapisan dikonfigurasi; setiap lapisan = kiraan berasingan berjustifikasi)
-  MUSYAHAMAH (kematian serentak): tiada pewarisan antara mereka — peraturan dikuatkuasa ikut tarikh/input
-  Output: MATRIKS PENERIMA AKHIR merentas SEMUA lapisan (penerima × pecahan berkesan × lapisan asal)
+  Kaedah (MAIS E-FARAID §8): bahagian vested waris itu menjadi "pusaka kedua" → Lapis 2–3 DIULANG utk warisNYA
+  JAMI'AH (angka penyatu merentas lapisan) dikira melalui 3 hubungan saham-vs-masalah terverifikasi:
+  (i) inqisam/tamathul, (ii) tawafuq, (iii) tabayun — contoh penuh MAIS; kes rujukan AL-KAFI #1021:
+  8 lapisan, jami'ah 422,400, 19 penerima akhir — TIADA had lapisan fiqh; rekursi dikawal kejuruteraan
+  MUSYAHAMAH (✅ Muzakarah Fatwa Kebangsaan Ke-83, Okt 2008): kematian serentak tanpa tertib pasti =
+  TIDAK saling mewarisi — pemisah munasakhat-vs-musyahamah = tarikh/masa kematian per waris + perakuan perubatan
+  MAFQUD (waris hilang — Irsyad 341): dikira hidup pada hartanya, mati pada harta orang lain; bahagian DITAHAN
+  Output: MATRIKS PENERIMA AKHIR merentas SEMUA lapisan (penerima × pecahan berkesan × lapisan asal × jami'ah)
 
 LAPIS 5 — PENYATU HARTA → AGIHAN AKHIR
   Turutan fiqh disahkan IFP/CFP: (0) hibah/penama/amanah [keluar pusaka] → sepencarian → kebumian → hutang
@@ -85,16 +89,16 @@ LAPIS 5 — PENYATU HARTA → AGIHAN AKHIR
 
 ## 5. Pengujian & Audit
 
-- **Test vectors**: kes single-layer klasik (balu+anak; suami+anak perempuan; 'aul klasik; radd) + kes BERLAPIS 2-3 tingkat + musyahamah + waris khas — setiap satu berjustifikasi & disemak pakar syariah sebelum aktivasi (Fasa 3.6)
+- **Test vectors**: kes single-layer klasik (balu+anak; suami+anak perempuan; 'aul 6→10/12→17/24→27; radd) + kes BERLAPIS 2-3 tingkat + **kes rujukan AL-KAFI #1021 (8 lapisan, jami'ah 422,400, 19 penerima)** + musyahamah (MKI-83) + waris khas (anak luar nikah via ibu; mualaf; al-haml; mafqud) — setiap satu berjustifikasi & disemak pakar syariah sebelum aktivasi (Fasa 3.6)
 - Rekomputasi bebas: input sama → pecahan sama (hash direkod)
 - Setiap peraturan pengecualian/penyesuaian bawa citation; PERLU SAHKAN disekat
 - Matriks akhir: kaitan ke lejar pusaka & Penyata Agihan (tiada pecahan "terapung")
 
 ## 6. Jurang & Status Kebenaran (Gaps)
 
-1. Peraturan teknikal berlapis/musyahamah/mahjub/wasiat wajibah & amalan JKSM (1 sijil vs berlapis?) — 🔄 `01-legal-framework/research-faraid-berlapis.md` sedang dikumpul; **sehingga selesai, Lapis 2 & 4 hanya beroperasi dengan peraturan terverifikasi; yang lain DISEKAT**.
-2. Status Sistem e-Faraid JKSM & liputan kalkulator sedia ada (berlapis?) — 🔄 research (jika kalkulator rasmi sokong berlapis, integrasi/muatan dikaji).
-3. Wasiat wajibah per negeri — konfigurasi per negeri diperlukan (tiada penetapan sehingga sumber disahkan).
+1. ~~Peraturan teknikal~~ ✅ TERINTEGRASI (`research-faraid-berlapis.md`): munasakhat (MAIS E-FARAID §8; kes 8 lapisan), musyahamah (MKI-83/2008), mahjub penuh, mekanik 'aul/radd + 7 asal masalah + 3 hubungan jami'ah, wasiat wajibah 5 negeri, waris khas. Baki PERLU SAHKAN: **amalan bilangan sijil kes berlapis** (1 perintah jami'ah vs sijil bertingkat — tiada arahan amalan rasmi dalam talian; sahkan dengan JKSM/JKSN negeri).
+2. ~~Status e-Faraid & kalkulator~~ ✅ DISEMAK SENDIRI (2026-11-01): e-Faraid JKSM server hidup tetapi sijil TLS salah hos (penyekat capaian); MyLAND single-layer tanpa munasakhat; K-Faraid MAIS pendidikan sahaja; kFaraid JKSM PERLU SAHKAN secara berfungsi.
+3. **Konfigurasi negeri → keputusan PANEL PAKAR diperlukan**: radd vs Baitulmal (amalan MAIS = Baitulmal, berbeza fatwa mutaakhirin); wasiat wajibah (5 negeri disahkan; teks Kelantan/Sabah belum semak; senarai negeri tanpa enakmen perlu pengesahan rasmi); fi sijil faraid per negeri.
 4. Maksimum lapisan rekursi & kaedah pegangan bahagian lapisan yang belum dituntut (waris lapisan-2 hilang) — dasar dicadangkan, menunggu panel.
 5. Enjin menyokong Semenanjung; negeri berbeasas enakmen sendiri — kawalan konfigurasi negeri wajib.
 
